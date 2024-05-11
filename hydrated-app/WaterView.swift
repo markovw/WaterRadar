@@ -8,22 +8,34 @@
 import SwiftUI
 
 struct WaterView: View {
+    @State private var percentageFilled: CGFloat = 0
+    @State private var isBouncing: Bool = false
+    @State private var valueDrinked: Double = 0
+//    @Binding var percentageFilled: CGFloat
+    
     var body: some View {
         
         VStack {
             Spacer()
             
-            DropShape()
-                .stroke(Color.blue, lineWidth: 6)
-                .frame(width: 300, height: 400)
-//            Image(systemName: "drop")
-//                .resizable()
-//                .frame(width: 200, height: 300)
-//                .foregroundStyle(.cyan)
+            Text("Total drinked: \(valueDrinked.formatted())L")
+            Spacer()
+            DropShapeFill(percentageFilled: $percentageFilled)
+                .frame(width: 300, height: 350)
+ 
             Spacer()
             ButtonAF(action: {
-                
+                valueDrinked += 0.25
+                valueDrinked = min(max(valueDrinked, 0), 2)
+                percentageFilled += 0.125
             }, buttonText: "Add water", icon: "")
+            .tint(.accentColor)
+            
+            ButtonAF(action: {
+                percentageFilled = 0
+                valueDrinked = 0
+            }, buttonText: "Clear", icon: "")
+                .tint(.red)
         }
     }
 }
@@ -42,6 +54,20 @@ struct DropShape: Shape {
         path.closeSubpath()
         
         return path
+    }
+}
+
+struct DropShapeFill: View {
+    @Binding var percentageFilled: CGFloat
+    
+    var body: some View {
+        ZStack {
+            DropShape()
+                .trim(from: 0, to: percentageFilled)
+                .fill(Color.cyan.opacity(percentageFilled < 0.5 ? 0 : 0.75))
+                .stroke(Color.blue.opacity(0.5), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
+                .animation(.easeInOut(duration: 2.5), value: percentageFilled)
+        }
     }
 }
 
