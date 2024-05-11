@@ -11,7 +11,7 @@ struct WaterTabView: View {
     var body: some View {
         TabView {
             WaterView()
-                .tabItem { Label("Home", systemImage:  "house") }
+                .tabItem { Label("Home", systemImage:  "drop") }
             
             AnalysisView()
                 .tabItem { Label("Analysis", systemImage:  "chart.bar.xaxis") }
