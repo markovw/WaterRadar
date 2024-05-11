@@ -7,19 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		862142862BEECC9C005B1717 /* hydrated_appApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862142852BEECC9C005B1717 /* hydrated_appApp.swift */; };
-		862142882BEECC9C005B1717 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862142872BEECC9C005B1717 /* ContentView.swift */; };
+		862142862BEECC9C005B1717 /* WaterTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862142852BEECC9C005B1717 /* WaterTrackerApp.swift */; };
+		862142882BEECC9C005B1717 /* WaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862142872BEECC9C005B1717 /* WaterView.swift */; };
 		8621428A2BEECC9D005B1717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 862142892BEECC9D005B1717 /* Assets.xcassets */; };
 		8621428E2BEECC9D005B1717 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8621428D2BEECC9D005B1717 /* Preview Assets.xcassets */; };
+		869E5EE12BEF524600042851 /* WaterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE02BEF524600042851 /* WaterTabView.swift */; };
+		869E5EE32BEF53DF00042851 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE22BEF53DF00042851 /* AccountView.swift */; };
+		869E5EE52BEF543200042851 /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE42BEF543200042851 /* AnalysisView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		862142822BEECC9C005B1717 /* hydrated-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hydrated-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		862142852BEECC9C005B1717 /* hydrated_appApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hydrated_appApp.swift; sourceTree = "<group>"; };
-		862142872BEECC9C005B1717 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		862142852BEECC9C005B1717 /* WaterTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTrackerApp.swift; sourceTree = "<group>"; };
+		862142872BEECC9C005B1717 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		862142892BEECC9D005B1717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8621428B2BEECC9D005B1717 /* hydrated_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hydrated_app.entitlements; sourceTree = "<group>"; };
 		8621428D2BEECC9D005B1717 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		869E5EE02BEF524600042851 /* WaterTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTabView.swift; sourceTree = "<group>"; };
+		869E5EE22BEF53DF00042851 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
+		869E5EE42BEF543200042851 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,8 +58,11 @@
 		862142842BEECC9C005B1717 /* hydrated-app */ = {
 			isa = PBXGroup;
 			children = (
-				862142852BEECC9C005B1717 /* hydrated_appApp.swift */,
-				862142872BEECC9C005B1717 /* ContentView.swift */,
+				862142852BEECC9C005B1717 /* WaterTrackerApp.swift */,
+				862142872BEECC9C005B1717 /* WaterView.swift */,
+				869E5EE02BEF524600042851 /* WaterTabView.swift */,
+				869E5EE42BEF543200042851 /* AnalysisView.swift */,
+				869E5EE22BEF53DF00042851 /* AccountView.swift */,
 				862142892BEECC9D005B1717 /* Assets.xcassets */,
 				8621428B2BEECC9D005B1717 /* hydrated_app.entitlements */,
 				8621428C2BEECC9D005B1717 /* Preview Content */,
@@ -139,8 +148,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				862142882BEECC9C005B1717 /* ContentView.swift in Sources */,
-				862142862BEECC9C005B1717 /* hydrated_appApp.swift in Sources */,
+				869E5EE32BEF53DF00042851 /* AccountView.swift in Sources */,
+				862142882BEECC9C005B1717 /* WaterView.swift in Sources */,
+				869E5EE52BEF543200042851 /* AnalysisView.swift in Sources */,
+				869E5EE12BEF524600042851 /* WaterTabView.swift in Sources */,
+				862142862BEECC9C005B1717 /* WaterTrackerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

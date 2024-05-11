@@ -8,10 +8,10 @@
 import SwiftUI
 
 @main
-struct hydrated_appApp: App {
+struct WaterTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WaterTabView()
         }
     }
 }
