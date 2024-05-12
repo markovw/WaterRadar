@@ -22,7 +22,7 @@ struct ButtonAF: View {
         .buttonStyle(.bordered)
         .controlSize(.extraLarge)
 //        .tint(.accentColor)
-        .padding(.bottom, 20)
+//        .padding(.bottom, 20)
         .fontWeight(.bold)
     }
 }

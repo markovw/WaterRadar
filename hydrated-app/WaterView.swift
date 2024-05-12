@@ -8,37 +8,74 @@
 import SwiftUI
 
 struct WaterView: View {
-    @State private var percentageFilled: CGFloat = 0
+    @State private var percentageFilled: CGFloat = 1
     @State private var isBouncing: Bool = false
-    @State private var valueDrinked: Double = 0
-//    @Binding var percentageFilled: CGFloat
+    @State var valueDrinked: Double = 0
+    @State private var isShowingWaterDetailView = false
+    @State private var dropped = false
+    @State var waterQuantity: Double = 0.125
+    @State var valueUserSet: Double = 0.25
     
     var body: some View {
         
-        VStack {
-            Spacer()
-            
-            Text("Total drinked: \(valueDrinked.formatted())L")
-            Spacer()
-            DropShapeFill(percentageFilled: $percentageFilled)
-                .frame(width: 300, height: 350)
- 
-            Spacer()
-            ButtonAF(action: {
-                valueDrinked += 0.25
-                valueDrinked = min(max(valueDrinked, 0), 2)
-                percentageFilled += 0.125
-            }, buttonText: "Add water", icon: "")
-            .tint(.accentColor)
-            
-            ButtonAF(action: {
-                percentageFilled = 0
-                valueDrinked = 0
-            }, buttonText: "Clear", icon: "")
+        NavigationStack {
+            VStack {
+                Spacer()
+                
+                Text("Total Drinked – \(valueDrinked.formatted())L")
+                    .font(.title2)
+                    .bold()
+                
+                
+                Spacer()
+                
+                DropShapeFill(percentageFilled: $percentageFilled)
+                    .frame(width: 300, height: 350)
+                
+                    .onTapGesture {
+                        if !dropped {
+                            percentageFilled = 0
+                            dropped = true
+                        }
+                        percentageFilled += waterQuantity
+                        valueDrinked += valueUserSet
+                        valueDrinked = min(max(valueDrinked, 0), 2)
+                    }
+                
+                Spacer()
+                
+                ButtonAF(action: {
+                    withAnimation {
+                        isShowingWaterDetailView.toggle()
+                    }
+                }, buttonText: "Add water", icon: "")
+                .tint(.accentColor)
+                
+                // clear button
+                ButtonAF(action: {
+                    percentageFilled = 1
+                    valueDrinked = 0
+                    dropped = false
+                    
+                }, buttonText: "Clear", icon: "")
                 .tint(.red)
+                .padding(.bottom, 20)
+            }
         }
+        .blur(radius: isShowingWaterDetailView ? 7 : 0)
+        .overlay(
+            ZStack {
+                if isShowingWaterDetailView {
+                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, valueUserSet: $valueUserSet, tempWaterQuantity: waterQuantity, tempValueUserSet: valueUserSet)
+                        .background(Color.white)
+                        .cornerRadius(20)
+                        .padding()
+                }
+            }
+        )
     }
 }
+    
 
 struct DropShape: Shape {
     func path(in rect: CGRect) -> Path {
@@ -64,8 +101,8 @@ struct DropShapeFill: View {
         ZStack {
             DropShape()
                 .trim(from: 0, to: percentageFilled)
-                .fill(Color.cyan.opacity(percentageFilled < 0.5 ? 0 : 0.75))
-                .stroke(Color.blue.opacity(0.5), style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
+                .fill(Color.cyan.opacity(percentageFilled < 0.5 ? 0.3 : 0.75))
+                .stroke(Color.blue.opacity(0.5), style: StrokeStyle(lineWidth: 10, lineCap: .round, lineJoin: .round))
                 .animation(.easeInOut(duration: 2.5), value: percentageFilled)
         }
     }
