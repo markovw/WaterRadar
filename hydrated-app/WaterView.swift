@@ -7,40 +7,55 @@
 
 import SwiftUI
 
+struct User {
+    @State private var gender: String
+    @State private var weight: Int
+}
+
 struct WaterView: View {
     @State private var percentageFilled: CGFloat = 1
     @State private var isBouncing: Bool = false
-    @State var valueDrinked: Double = 0
     @State private var isShowingWaterDetailView = false
     @State private var dropped = false
+    @State var valueDrinked: Double = 0
     @State var waterQuantity: Double = 0.125
-    @State var valueUserSet: Double = 0.25
-    
+    @State var isPressed: Bool = true
+    @State var userValue: Double = 0.25 // value for default
+    @State var maxWaterValue = 0
+
     var body: some View {
         
         NavigationStack {
             VStack {
                 Spacer()
                 
-                Text("Total Drinked – \(valueDrinked.formatted())L")
-                    .font(.title2)
-                    .bold()
-                
+                NavigationLink(destination: UserData()) {
+                    Text("Total Drinked – \(valueDrinked.formatted())L")
+                        .font(.title2)
+                        .bold()
+                        .foregroundStyle(.black)
+                }
                 
                 Spacer()
                 
-                DropShapeFill(percentageFilled: $percentageFilled)
-                    .frame(width: 300, height: 350)
-                
-                    .onTapGesture {
-                        if !dropped {
-                            percentageFilled = 0
-                            dropped = true
+                ZStack {
+                    DropShapeFill(percentageFilled: $percentageFilled)
+                        .frame(width: 300, height: 380)
+                        .overlay (
+                            Rectangle()
+                                .fill(.clear)
+                                .contentShape(Rectangle()) // projects the figure even if it is hidden
+                        )
+                        .onTapGesture {
+                            if !dropped {
+                                percentageFilled = 0
+                                dropped = true
+                            }
+                            percentageFilled += waterQuantity
+                            valueDrinked += userValue
+                            valueDrinked = min(max(valueDrinked, 0), 5)
                         }
-                        percentageFilled += waterQuantity
-                        valueDrinked += valueUserSet
-                        valueDrinked = min(max(valueDrinked, 0), 2)
-                    }
+                }
                 
                 Spacer()
                 
@@ -66,7 +81,7 @@ struct WaterView: View {
         .overlay(
             ZStack {
                 if isShowingWaterDetailView {
-                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, valueUserSet: $valueUserSet, tempWaterQuantity: waterQuantity, tempValueUserSet: valueUserSet)
+                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, valueDrinked: $valueDrinked, userValue: $userValue)
                         .background(Color.white)
                         .cornerRadius(20)
                         .padding()
@@ -108,6 +123,25 @@ struct DropShapeFill: View {
     }
 }
 
+enum Gender: String {
+    case Male = "Male"
+    case Female = "Female"
+}
+
+func waterNormCalculation(weight: Int, gender: Gender) -> Int {
+    var waterNorm = 0
+    
+    if gender == .Male {
+        waterNorm = weight * 30
+    } else {
+        waterNorm = weight * 25
+    }
+    
+    return waterNorm
+}
+
 #Preview {
     WaterView()
 }
+
+
