@@ -17,6 +17,8 @@ struct UserData: View {
         ZStack {
             Color.blue.opacity(0.2)
                 .ignoresSafeArea()
+                
+            
             VStack {
                 Text("2000ml")
                     .font(.largeTitle)
@@ -45,10 +47,17 @@ struct UserData: View {
                 
                 
             }
-            if isGenderMenuOpen {
-                GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen).zIndex(1)
-                    .offset(y: 250)
-            }
+            .blur(radius: isGenderMenuOpen ? 7 : 0)
+            .overlay (
+                ZStack {
+                    if isGenderMenuOpen {
+                        GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen)
+                            .zIndex(1)
+                            .offset(y: 250)
+                    }
+                }
+            )
+            
         }
     }
 }
