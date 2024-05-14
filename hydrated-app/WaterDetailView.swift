@@ -31,13 +31,13 @@ struct WaterDetailView: View {
     ]
     
     init(isShowingDetail: Binding<Bool>, waterQuantity: Binding<Double>, valueDrinked: Binding<Double>, userValue: Binding<Double>) {
-            self._isShowingDetail = isShowingDetail
-            self._waterQuantity = waterQuantity
-            self._valueDrinked = valueDrinked
-            self._userValue = userValue
-            _previousWaterQuantity = State(initialValue: waterQuantity.wrappedValue)
-            _previousValueUserSet = State(initialValue: userValue.wrappedValue)
-        }
+        self._isShowingDetail = isShowingDetail
+        self._waterQuantity = waterQuantity
+        self._valueDrinked = valueDrinked
+        self._userValue = userValue
+        _previousWaterQuantity = State(initialValue: waterQuantity.wrappedValue)
+        _previousValueUserSet = State(initialValue: userValue.wrappedValue)
+    }
     
     var body: some View {
         ZStack(alignment: .top) {
@@ -65,7 +65,7 @@ struct WaterDetailView: View {
                                         waterQuantity = quantity.value
                                         valueUserSet = quantity.value
                                         userValue = quantity.valueUserSee
-
+                                        
                                         print("set to \(quantity.text) ml")
                                     }
                                 }
@@ -75,30 +75,32 @@ struct WaterDetailView: View {
                 .padding(.top, 35)
                 
                 Text("How much water did you drink?")
-                                    .font(.title)
-                                    .fontWeight(.medium)
-                                    .frame(width: 250)
-                                    .padding(.top, 50)
-                                    .multilineTextAlignment(.center)
-                                    .foregroundStyle(.white)
-                                
-                                ButtonAF(action: {
-                                    isShowingDetail = false
-                                }, buttonText: "Choose Quantity", icon: "")
-                                .padding(.top, 55)
-                                .tint(.white)
-                                
-                                ButtonAF(action: {
-                                    isShowingDetail = false
-                                    waterQuantity = previousWaterQuantity
-                                    valueUserSet = previousWaterQuantity
-                                }, buttonText: "Cancel", icon: "")
-                                .foregroundStyle(.white)
-                                .tint(.red.opacity(4.5))
+                    .font(.title)
+                    .fontWeight(.medium)
+                    .frame(width: 250)
+                    .padding(.top, 50)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.white)
+                
+                ButtonAF(action: {
+                    isShowingDetail = false
+                }, buttonText: "Choose Quantity", icon: "")
+                .padding(.top, 55)
+                .tint(.white)
+                
+                ButtonAF(action: {
+                    isShowingDetail = false
+                    waterQuantity = previousWaterQuantity
+                    valueUserSet = previousWaterQuantity
+                }, buttonText: "Cancel", icon: "")
+                .foregroundStyle(.white)
+                .tint(.red.opacity(4.5))
             }
         }
     }
 }
+
+
 
 #Preview {
     WaterDetailView(isShowingDetail: .constant(false), waterQuantity: .constant(0), valueDrinked: .constant(0), userValue: .constant(0))

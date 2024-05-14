@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct WaterTabView: View {
-    var body: some View {
-        TabView {
-            WaterView()
-                .tabItem { Label("Home", systemImage:  "drop") }
-            
-            AnalysisView()
-                .tabItem { Label("Analysis", systemImage:  "chart.bar.xaxis") }
-            
-            AccountView()
-                .tabItem { Label("Profile", systemImage:  "person") }
-        }
-    }
-}
-
-#Preview {
-    WaterTabView()
-}
+//struct WaterTabView: View {
+//    var body: some View {
+//        TabView {
+//            WaterView()
+//                .tabItem { Label("Home", systemImage:  "drop") }
+//            
+//            AnalysisView()
+//                .tabItem { Label("Analysis", systemImage:  "chart.bar.xaxis") }
+//            
+//            AccountView()
+//                .tabItem { Label("Profile", systemImage:  "person") }
+//        }
+//    }
+//}
+//
+//#Preview {
+//    WaterTabView()
+//}

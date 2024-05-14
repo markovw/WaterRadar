@@ -24,7 +24,6 @@ struct WaterView: View {
     @State var maxWaterValue = 0
 
     var body: some View {
-        
         NavigationStack {
             VStack {
                 Spacer()
@@ -33,7 +32,7 @@ struct WaterView: View {
                     Text("Total Drinked – \(valueDrinked.formatted())L")
                         .font(.title2)
                         .bold()
-                        .foregroundStyle(.black)
+                        .foregroundStyle(.blue)
                 }
                 
                 Spacer()

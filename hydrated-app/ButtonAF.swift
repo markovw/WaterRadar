@@ -51,11 +51,50 @@ struct SelectButton: View {
         
     }
 }
+
+struct MenuButton: View {
+    let action: () -> Void
+    let buttonText: String
+    let icon: String
+    
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                Text(buttonText)
+                    .foregroundStyle(.black)
+                    .padding(10)
+                Spacer()
+                Image(systemName: icon)
+                    .resizable()
+                    .frame(width: 20, height: 20)
+                    .foregroundStyle(.black)
+                    .padding(10)
+            }
+            .padding(.vertical, 5)
+            
+            
+        }
+        .cornerRadius(20)
+        .frame(maxWidth: .infinity)
+
+        .padding(.horizontal, 20)
+        .buttonStyle(.bordered)
+        .tint(.gray)
+        .fontWeight(.bold)
+        
+    }
+}
 #Preview {
     SelectButton(action: {
         
     }, buttonText: "Sex", icon: "face.smiling")
     
+}
+
+#Preview {
+    MenuButton(action: {
+        
+    }, buttonText: "Test", icon: "brain")
 }
 //
 //
