@@ -105,4 +105,3 @@ struct WaterDetailView: View {
 #Preview {
     WaterDetailView(isShowingDetail: .constant(false), waterQuantity: .constant(0), valueDrinked: .constant(0), userValue: .constant(0))
 }
-

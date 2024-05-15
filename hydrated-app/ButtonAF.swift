@@ -46,7 +46,6 @@ struct SelectButton: View {
         }
         .buttonStyle(.bordered)
         .controlSize(.extraLarge)
-        .tint(.accentColor)
         .fontWeight(.bold)
         
     }
@@ -71,15 +70,11 @@ struct MenuButton: View {
                     .padding(10)
             }
             .padding(.vertical, 5)
-            
-            
         }
         .cornerRadius(20)
         .frame(maxWidth: .infinity)
-
         .padding(.horizontal, 20)
         .buttonStyle(.bordered)
-        .tint(.gray)
         .fontWeight(.bold)
         
     }

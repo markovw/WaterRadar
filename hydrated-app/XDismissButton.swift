@@ -9,7 +9,7 @@ import SwiftUI
 
 struct XDismissButton: View {
     
-    @Binding var isGenderMenuOpen: Bool
+    var action: () -> Void
     
     var body: some View {
         HStack {
@@ -20,11 +20,7 @@ struct XDismissButton: View {
                 .frame(width: 45, height: 45)
                 .overlay(
                     
-                    Button {
-                        withAnimation {
-                            isGenderMenuOpen = false
-                        }
-                    } label: {
+                    Button(action: action) {
                         Image(systemName: "xmark")
                             .foregroundColor(Color(.label))
                             .imageScale(.large)
@@ -37,5 +33,7 @@ struct XDismissButton: View {
 }
 
 #Preview {
-    XDismissButton(isGenderMenuOpen: .constant(false))
+    XDismissButton(action: {
+        
+    })
 }

@@ -22,7 +22,8 @@ struct WaterView: View {
     @State var isPressed: Bool = true
     @State var userValue: Double = 0.25 // value for default
     @State var maxWaterValue = 0
-
+    
+        
     var body: some View {
         NavigationStack {
             VStack {
@@ -89,7 +90,7 @@ struct WaterView: View {
         )
     }
 }
-    
+
 
 struct DropShape: Shape {
     func path(in rect: CGRect) -> Path {
@@ -122,25 +123,8 @@ struct DropShapeFill: View {
     }
 }
 
-enum Gender: String {
-    case Male = "Male"
-    case Female = "Female"
-}
 
-func waterNormCalculation(weight: Int, gender: Gender) -> Int {
-    var waterNorm = 0
-    
-    if gender == .Male {
-        waterNorm = weight * 30
-    } else {
-        waterNorm = weight * 25
-    }
-    
-    return waterNorm
-}
 
 #Preview {
     WaterView()
 }
-
-
