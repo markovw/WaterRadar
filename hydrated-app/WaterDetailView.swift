@@ -91,7 +91,7 @@ struct WaterDetailView: View {
                 ButtonAF(action: {
                     isShowingDetail = false
                     waterQuantity = previousWaterQuantity
-                    valueUserSet = previousWaterQuantity
+                    previousWaterQuantity = valueUserSet 
                 }, buttonText: "Cancel", icon: "")
                 .foregroundStyle(.white)
                 .tint(.red.opacity(4.5))

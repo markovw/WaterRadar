@@ -11,6 +11,7 @@
 		862142882BEECC9C005B1717 /* WaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862142872BEECC9C005B1717 /* WaterView.swift */; };
 		8621428A2BEECC9D005B1717 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 862142892BEECC9D005B1717 /* Assets.xcassets */; };
 		8621428E2BEECC9D005B1717 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8621428D2BEECC9D005B1717 /* Preview Assets.xcassets */; };
+		862FEE4A2BF6109300CDAA66 /* WaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 862FEE492BF6109300CDAA66 /* WaterViewModel.swift */; };
 		863D6A732BF2AEA600E55117 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863D6A722BF2AEA600E55117 /* UserData.swift */; };
 		869E5EE12BEF524600042851 /* WaterTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE02BEF524600042851 /* WaterTabView.swift */; };
 		869E5EE32BEF53DF00042851 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE22BEF53DF00042851 /* AccountView.swift */; };
@@ -27,6 +28,7 @@
 		862142892BEECC9D005B1717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8621428B2BEECC9D005B1717 /* hydrated_app.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = hydrated_app.entitlements; sourceTree = "<group>"; };
 		8621428D2BEECC9D005B1717 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		862FEE492BF6109300CDAA66 /* WaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterViewModel.swift; sourceTree = "<group>"; };
 		863D6A722BF2AEA600E55117 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		869E5EE02BEF524600042851 /* WaterTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTabView.swift; sourceTree = "<group>"; };
 		869E5EE22BEF53DF00042851 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
@@ -70,6 +72,7 @@
 				869E5EE02BEF524600042851 /* WaterTabView.swift */,
 				862142872BEECC9C005B1717 /* WaterView.swift */,
 				86A0ADA42BF124E200344B90 /* WaterDetailView.swift */,
+				862FEE492BF6109300CDAA66 /* WaterViewModel.swift */,
 				863D6A722BF2AEA600E55117 /* UserData.swift */,
 				86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */,
 				869E5EE62BEF7BBA00042851 /* ButtonAF.swift */,
@@ -166,6 +169,7 @@
 				863D6A732BF2AEA600E55117 /* UserData.swift in Sources */,
 				869E5EE52BEF543200042851 /* AnalysisView.swift in Sources */,
 				869E5EE12BEF524600042851 /* WaterTabView.swift in Sources */,
+				862FEE4A2BF6109300CDAA66 /* WaterViewModel.swift in Sources */,
 				86A0ADA52BF124E200344B90 /* WaterDetailView.swift in Sources */,
 				869E5EE72BEF7BBA00042851 /* ButtonAF.swift in Sources */,
 				862142862BEECC9C005B1717 /* WaterTrackerApp.swift in Sources */,

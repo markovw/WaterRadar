@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct WaterTrackerApp: App {
+    @StateObject var userDataModel = UserDataModel()
+    
     var body: some Scene {
         WindowGroup {
             WaterView()
+                .environmentObject(userDataModel)
 //            WaterTabView()
         }
     }

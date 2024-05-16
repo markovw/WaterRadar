@@ -14,20 +14,22 @@ struct User {
 
 struct WaterView: View {
     @State private var percentageFilled: CGFloat = 1
-    @State private var isBouncing: Bool = false
     @State private var isShowingWaterDetailView = false
     @State private var dropped = false
     @State var valueDrinked: Double = 0
     @State var waterQuantity: Double = 0.125
-    @State var isPressed: Bool = true
-    @State var userValue: Double = 0.25 // value for default
-    @State var maxWaterValue = 0
-    
         
+    @State var userValue: Double = 0.25 // value for default
+    
+    @State var maxWaterValue = 0
+
+    @EnvironmentObject var userDataModel: UserDataModel
+    
     var body: some View {
         NavigationStack {
             VStack {
                 Spacer()
+
                 
                 NavigationLink(destination: UserData()) {
                     Text("Total Drinked – \(valueDrinked.formatted())L")
@@ -49,6 +51,7 @@ struct WaterView: View {
                         .onTapGesture {
                             if !dropped {
                                 percentageFilled = 0
+                                waterQuantity = userDataModel.calculateNormOfWater()
                                 dropped = true
                             }
                             percentageFilled += waterQuantity
@@ -127,4 +130,5 @@ struct DropShapeFill: View {
 
 #Preview {
     WaterView()
+        .environmentObject(UserDataModel())
 }

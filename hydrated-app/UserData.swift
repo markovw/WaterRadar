@@ -18,9 +18,12 @@ struct UserData: View {
     @State var selectedWeight: Int = 0
     @State private var selectButtonColorWeight: Color = .blue.opacity(0.5)
     
-    @State var normOfWater: Int = 2000
+//    @State var normOfWater: Int = 2000
     
     @State var isDataFilled: Bool = false
+    
+    @EnvironmentObject var userDataModel: UserDataModel
+    
     
     var body: some View {
         ZStack {
@@ -30,10 +33,11 @@ struct UserData: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text("\(normOfWater)ml")
+                Text("\(userDataModel.normOfWater)ml")
                     .font(.system(size: 60))
                     .bold()
                     .padding(.bottom, 10)
+//                    .environmentObject(userDataModel)
                 
                 
                 Text("Calculate your goal")
@@ -83,7 +87,7 @@ struct UserData: View {
     func checkDataFilled() {
         if selectedButtonDefault != "Sex" && selectedButtonWeight != "Weight" {
             // Если обе кнопки заполнены, вычисляем норму воды
-            normOfWater = waterNormCalculation(weight: selectedWeight, gender: selectedButtonDefault)
+            userDataModel.normOfWater = waterNormCalculation(weight: selectedWeight, gender: selectedButtonDefault)
             isDataFilled = true
         } else {
             isDataFilled = false
