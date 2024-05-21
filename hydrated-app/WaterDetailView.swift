@@ -18,14 +18,10 @@ struct WaterQuantity: Identifiable {
 
 struct WaterDetailView: View {
     @EnvironmentObject var userDataModel: UserDataModel
-    
     @Binding var isShowingDetail: Bool
     @Binding var waterQuantity: Double
     @Binding var userValue: Double
-    
     @State private var valueUserSet: Double = 0
-    @State private var previousWaterQuantity: Double = 0
-    @State private var previousValueUserSet: Double = 0
     @State private var quantities: [WaterQuantity] = []
     
     var body: some View {
@@ -82,8 +78,6 @@ struct WaterDetailView: View {
                 
                 ButtonAF(action: {
                     isShowingDetail = false
-                    waterQuantity = previousWaterQuantity
-                    previousWaterQuantity = valueUserSet
                 }, buttonText: "Cancel", icon: "")
                 .foregroundStyle(.white)
                 .tint(.red.opacity(4.5))
@@ -97,9 +91,9 @@ struct WaterDetailView: View {
     private func initializeQuantities() {
         let calculatedWaterQuantity = userDataModel.calculateNormOfWater()
             quantities = [
-                WaterQuantity(text: "250", valueUserSee: 0.25, waterQuantity: calculatedWaterQuantity),
-                WaterQuantity(text: "350", valueUserSee: 0.35, waterQuantity: calculatedWaterQuantity * 1.4),
-                WaterQuantity(text: "500", valueUserSee: 0.5, waterQuantity: calculatedWaterQuantity * 2)
+                WaterQuantity(text: "250", valueUserSee: 250, waterQuantity: calculatedWaterQuantity),
+                WaterQuantity(text: "350", valueUserSee: 350, waterQuantity: calculatedWaterQuantity * 1.4),
+                WaterQuantity(text: "500", valueUserSee: 500, waterQuantity: calculatedWaterQuantity * 2)
             ]
         }
 }

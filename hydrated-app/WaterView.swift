@@ -13,15 +13,13 @@ struct User {
 }
 
 struct WaterView: View {
-    @State private var percentageFilled: CGFloat = 1
+    @State private var percentageFilled: CGFloat = UserDefaults.standard.double(forKey: "Percentage")
+    @AppStorage("UserDrinked") var valueDrinked: Double = 250 // text valueDrinked
+    @AppStorage("DroppedTF") private var dropped = false
     @State private var isShowingWaterDetailView = false
-    @State private var dropped = false
-    @State var valueDrinked: Double = 0
-    @State var waterQuantity: Double = 0.125
-        
-    @State var userValue: Double = 0.25 // value for default
-    
-    @State var maxWaterValue = 0
+    @State private var showCompletionAnimation = false
+    @State var waterQuantity: Double = 0.125 // for fill the trim
+    @State var userValue: Double = 250 // value for default for user
 
     @EnvironmentObject var userDataModel: UserDataModel
     
@@ -30,22 +28,22 @@ struct WaterView: View {
             VStack {
                 Spacer()
                 
-                NavigationLink(destination: UserData()) {
-                    Text("Total Drinked – \(valueDrinked.formatted())L")
-                        .font(.title2)
-                        .bold()
-                        .foregroundStyle(.blue)
-                }
-                
-                Spacer()
-                
                 ZStack {
                     DropShapeFill(percentageFilled: $percentageFilled)
-                        .frame(width: 300, height: 380)
+                        .frame(width: showCompletionAnimation ? 350 : 300, height: showCompletionAnimation ? 430 : 380)
                         .overlay (
                             Rectangle()
                                 .fill(.clear)
                                 .contentShape(Rectangle()) // projects the figure even if it is hidden
+                            
+                        )
+                        .overlay (
+                            NavigationLink(destination: UserData()) {
+                                Text("\(valueDrinked.formatted())ml")
+                                    .font(.title)
+                                    .fontWeight(.heavy)
+                                    .foregroundStyle(.blue)
+                            }
                         )
                         .onTapGesture {
                             if !dropped {
@@ -54,9 +52,22 @@ struct WaterView: View {
                             }
                             percentageFilled += waterQuantity
                             valueDrinked += userValue
-                            valueDrinked = min(max(valueDrinked, 0), 6)
+                            UserDefaults.standard.set(percentageFilled, forKey: "Percentage")
+                            valueDrinked = min(max(valueDrinked, 0), 6000)
+                            
+                            if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
+                                withAnimation(.spring(duration: 0.5)) {
+                                    showCompletionAnimation = true
+                                }
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+                                    withAnimation(.spring(duration: 0.65)) {
+                                        showCompletionAnimation = false
+                                    }
+                                }
+                            }
                         }
                 }
+                .frame(maxWidth: .infinity, maxHeight: 450)
                 .onAppear {
                     waterQuantity = userDataModel.calculateNormOfWater()
                 }
@@ -96,7 +107,6 @@ struct WaterView: View {
     }
 }
 
-
 struct DropShape: Shape {
     func path(in rect: CGRect) -> Path {
         var path = Path()
@@ -127,8 +137,6 @@ struct DropShapeFill: View {
         }
     }
 }
-
-
 
 #Preview {
     WaterView()
