@@ -52,8 +52,6 @@ struct WaterDetailView: View {
                                         valueUserSet = quantity.valueUserSee
                                         userValue = quantity.valueUserSee
                                         
-                                        
-                                        
                                         print("set to \(quantity.text) ml")
                                     }
                                 }

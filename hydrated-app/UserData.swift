@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UserData: View {
+    @EnvironmentObject var userDataModel: UserDataModel
     @State var isGenderMenuOpen: Bool = false
     @State var selectedButtonDefault: String = "Sex"
     @State var selectedIconSex: String = "face.smiling"
@@ -17,12 +18,8 @@ struct UserData: View {
     @State var selectedButtonWeight: String = "Weight"
     @State var selectedWeight: Int = 0
     @State private var selectButtonColorWeight: Color = .blue.opacity(0.5)
-    
-//    @State var normOfWater: Int = 2000
-    
     @State var isDataFilled: Bool = false
     
-    @EnvironmentObject var userDataModel: UserDataModel
     
     
     var body: some View {
@@ -33,10 +30,10 @@ struct UserData: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text("\(userDataModel.normOfWater)ml")
+                Text("\(userDataModel.normOfWater.formatted(.number.grouping(.never)))ml")
                     .font(.system(size: 60))
                     .bold()
-                    .padding(.bottom, 10)                
+                    .padding(.bottom, 10)
                 
                 Text("Calculate your goal")
                     .font(.title2)

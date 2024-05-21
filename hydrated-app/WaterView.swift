@@ -13,6 +13,7 @@ struct User {
 }
 
 struct WaterView: View {
+    @EnvironmentObject var userDataModel: UserDataModel
     @State private var percentageFilled: CGFloat = UserDefaults.standard.double(forKey: "Percentage")
     @AppStorage("UserDrinked") var valueDrinked: Double = 250 // text valueDrinked
     @AppStorage("DroppedTF") private var dropped = false
@@ -21,7 +22,6 @@ struct WaterView: View {
     @State var waterQuantity: Double = 0.125 // for fill the trim
     @State var userValue: Double = 250 // value for default for user
 
-    @EnvironmentObject var userDataModel: UserDataModel
     
     var body: some View {
         NavigationStack {
@@ -35,11 +35,10 @@ struct WaterView: View {
                             Rectangle()
                                 .fill(.clear)
                                 .contentShape(Rectangle()) // projects the figure even if it is hidden
-                            
                         )
                         .overlay (
                             NavigationLink(destination: UserData()) {
-                                Text("\(valueDrinked.formatted())ml")
+                                Text("\(valueDrinked.formatted(.number.grouping(.never)))ml")
                                     .font(.title)
                                     .fontWeight(.heavy)
                                     .foregroundStyle(.blue)
