@@ -29,7 +29,6 @@ struct WaterView: View {
         NavigationStack {
             VStack {
                 Spacer()
-
                 
                 NavigationLink(destination: UserData()) {
                     Text("Total Drinked – \(valueDrinked.formatted())L")
@@ -51,17 +50,20 @@ struct WaterView: View {
                         .onTapGesture {
                             if !dropped {
                                 percentageFilled = 0
-                                waterQuantity = userDataModel.calculateNormOfWater()
                                 dropped = true
                             }
                             percentageFilled += waterQuantity
                             valueDrinked += userValue
-                            valueDrinked = min(max(valueDrinked, 0), 5)
+                            valueDrinked = min(max(valueDrinked, 0), 6)
                         }
+                }
+                .onAppear {
+                    waterQuantity = userDataModel.calculateNormOfWater()
                 }
                 
                 Spacer()
                 
+                // add water button
                 ButtonAF(action: {
                     withAnimation {
                         isShowingWaterDetailView.toggle()
@@ -84,7 +86,7 @@ struct WaterView: View {
         .overlay(
             ZStack {
                 if isShowingWaterDetailView {
-                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, valueDrinked: $valueDrinked, userValue: $userValue)
+                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, userValue: $userValue)
                         .background(Color.white)
                         .cornerRadius(20)
                         .padding()

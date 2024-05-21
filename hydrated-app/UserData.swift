@@ -36,9 +36,7 @@ struct UserData: View {
                 Text("\(userDataModel.normOfWater)ml")
                     .font(.system(size: 60))
                     .bold()
-                    .padding(.bottom, 10)
-//                    .environmentObject(userDataModel)
-                
+                    .padding(.bottom, 10)                
                 
                 Text("Calculate your goal")
                     .font(.title2)
@@ -201,4 +199,5 @@ func waterNormCalculation(weight: Int, gender: String) -> Int {
 
 #Preview {
     UserData(selectedButtonDefault: "Men")
+        .environmentObject(UserDataModel())
 }

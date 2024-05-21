@@ -15,6 +15,11 @@ class UserDataModel: ObservableObject {
         print(result)
         let calculation = 1 / result
         print(calculation)
+        
         return calculation
     }
+}
+
+class WaterData: ObservableObject {
+    
 }

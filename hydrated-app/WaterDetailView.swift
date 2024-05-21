@@ -9,38 +9,28 @@ import SwiftUI
 
 struct WaterQuantity: Identifiable {
     let id = UUID()
-    let value: Double
     let text: String
     let valueUserSee: Double
     var isPressed: Bool = false
+    var waterQuantity: Double
+    
 }
 
 struct WaterDetailView: View {
+    @EnvironmentObject var userDataModel: UserDataModel
+    
     @Binding var isShowingDetail: Bool
     @Binding var waterQuantity: Double
-    @Binding var valueDrinked: Double
     @Binding var userValue: Double
     
     @State private var valueUserSet: Double = 0
-    @State private var previousWaterQuantity: Double
-    @State private var previousValueUserSet: Double
-    @State private var quantities: [WaterQuantity] = [
-        WaterQuantity(value: 0.125, text: "250", valueUserSee: 0.25),
-        WaterQuantity(value: 0.175, text: "350", valueUserSee: 0.35),
-        WaterQuantity(value: 0.25, text: "500", valueUserSee: 0.5)
-    ]
-    
-    init(isShowingDetail: Binding<Bool>, waterQuantity: Binding<Double>, valueDrinked: Binding<Double>, userValue: Binding<Double>) {
-        self._isShowingDetail = isShowingDetail
-        self._waterQuantity = waterQuantity
-        self._valueDrinked = valueDrinked
-        self._userValue = userValue
-        _previousWaterQuantity = State(initialValue: waterQuantity.wrappedValue)
-        _previousValueUserSet = State(initialValue: userValue.wrappedValue)
-    }
+    @State private var previousWaterQuantity: Double = 0
+    @State private var previousValueUserSet: Double = 0
+    @State private var quantities: [WaterQuantity] = []
     
     var body: some View {
-        ZStack(alignment: .top) {
+        ZStack(
+            alignment: .top) {
             RoundedRectangle(cornerRadius: 20)
                 .frame(width: 350, height: 450)
                 .foregroundStyle(.cyan.opacity(0.8))
@@ -62,9 +52,11 @@ struct WaterDetailView: View {
                                 withAnimation(.spring()) {
                                     quantity.isPressed.toggle()
                                     if quantity.isPressed {
-                                        waterQuantity = quantity.value
-                                        valueUserSet = quantity.value
+                                        waterQuantity = quantity.waterQuantity
+                                        valueUserSet = quantity.valueUserSee
                                         userValue = quantity.valueUserSee
+                                        
+                                        
                                         
                                         print("set to \(quantity.text) ml")
                                     }
@@ -91,17 +83,23 @@ struct WaterDetailView: View {
                 ButtonAF(action: {
                     isShowingDetail = false
                     waterQuantity = previousWaterQuantity
-                    previousWaterQuantity = valueUserSet 
+                    previousWaterQuantity = valueUserSet
                 }, buttonText: "Cancel", icon: "")
                 .foregroundStyle(.white)
                 .tint(.red.opacity(4.5))
             }
+            .onAppear {
+                waterQuantity = userDataModel.calculateNormOfWater()
+                initializeQuantities()
+            }
         }
     }
-}
-
-
-
-#Preview {
-    WaterDetailView(isShowingDetail: .constant(false), waterQuantity: .constant(0), valueDrinked: .constant(0), userValue: .constant(0))
+    private func initializeQuantities() {
+        let calculatedWaterQuantity = userDataModel.calculateNormOfWater()
+            quantities = [
+                WaterQuantity(text: "250", valueUserSee: 0.25, waterQuantity: calculatedWaterQuantity),
+                WaterQuantity(text: "350", valueUserSee: 0.35, waterQuantity: calculatedWaterQuantity * 1.4),
+                WaterQuantity(text: "500", valueUserSee: 0.5, waterQuantity: calculatedWaterQuantity * 2)
+            ]
+        }
 }
