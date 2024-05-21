@@ -18,10 +18,11 @@ struct WaterView: View {
     @AppStorage("UserDrinked") var valueDrinked: Double = 250 // text valueDrinked
     @AppStorage("DroppedTF") private var dropped = false
     @State private var isShowingWaterDetailView = false
-    @State private var showCompletionAnimation = false
+    @State private var animationOnClick = false
+    @State private var finalAnimation = false
     @State var waterQuantity: Double = 0.125 // for fill the trim
     @State var userValue: Double = 250 // value for default for user
-
+    
     
     var body: some View {
         NavigationStack {
@@ -30,7 +31,8 @@ struct WaterView: View {
                 
                 ZStack {
                     DropShapeFill(percentageFilled: $percentageFilled)
-                        .frame(width: showCompletionAnimation ? 350 : 300, height: showCompletionAnimation ? 430 : 380)
+                        .frame(width: animationOnClick ? 350 : 300, height: animationOnClick ? 430 : 380)
+                        .rotationEffect(finalAnimation ? .degrees(180) : .degrees(0))
                         .overlay (
                             Rectangle()
                                 .fill(.clear)
@@ -54,42 +56,34 @@ struct WaterView: View {
                             UserDefaults.standard.set(percentageFilled, forKey: "Percentage")
                             valueDrinked = min(max(valueDrinked, 0), 6000)
                             
-                            if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
+                            if Int(valueDrinked) > userDataModel.normOfWater / 1000 {
                                 withAnimation(.spring(duration: 0.5)) {
-                                    showCompletionAnimation = true
+                                    animationOnClick = true
                                 }
                                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-                                    withAnimation(.spring(duration: 0.65)) {
-                                        showCompletionAnimation = false
+                                    withAnimation(.snappy(duration: 0.65)) {
+                                        animationOnClick = false
                                     }
+                                }
+                            } else if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
+                                withAnimation {
+                                    finalAnimation = true
                                 }
                             }
                         }
+                        .onLongPressGesture {
+                            percentageFilled = 1
+                            valueDrinked = 0
+                            dropped = false
+                            print("Water cleared ---")
+                        }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 450)
-                .onAppear {
-                    waterQuantity = userDataModel.calculateNormOfWater()
-                }
                 
                 Spacer()
+                WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, userValue: $userValue)
+                    .padding()
                 
-                // add water button
-                ButtonAF(action: {
-                    withAnimation {
-                        isShowingWaterDetailView.toggle()
-                    }
-                }, buttonText: "Add water", icon: "")
-                .tint(.accentColor)
-                
-                // clear button
-                ButtonAF(action: {
-                    percentageFilled = 1
-                    valueDrinked = 0
-                    dropped = false
-                    
-                }, buttonText: "Clear", icon: "")
-                .tint(.red)
-                .padding(.bottom, 20)
             }
         }
         .blur(radius: isShowingWaterDetailView ? 7 : 0)

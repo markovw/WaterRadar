@@ -25,60 +25,28 @@ struct WaterDetailView: View {
     @State private var quantities: [WaterQuantity] = []
     
     var body: some View {
-        ZStack(
-            alignment: .top) {
-            RoundedRectangle(cornerRadius: 20)
-                .frame(width: 350, height: 450)
-                .foregroundStyle(.cyan.opacity(0.8))
-                .shadow(color: .black.opacity(0.1), radius: 5)
+        ZStack(alignment: .top) {
             VStack {
                 HStack(spacing: 30) {
-                    ForEach($quantities) { $quantity in
+                    ForEach($quantities.indices, id: \.self) { index in
+                        let quantity = quantities[index]
                         Circle()
                             .frame(width: 70, height: 70)
-                            .foregroundStyle(quantity.isPressed ? .black.opacity(0.7) : .black.opacity(0.5))
-                            .scaleEffect(quantity.isPressed ? 1.2 : 1.0)
+                            .foregroundStyle(quantity.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor.opacity(0.35))
+                            .scaleEffect(quantity.isPressed ? 1.15 : 1.0)
                             .overlay {
                                 Text(quantity.text)
-                                    .font(.title2)
-                                    .foregroundStyle(.white)
-                                    .bold()
+                                    .font(.title3)
+                                    .foregroundStyle(quantity.isPressed ? .white : .white)
+                                    .fontWeight(.medium)
                             }
                             .onTapGesture {
                                 withAnimation(.spring()) {
-                                    quantity.isPressed.toggle()
-                                    if quantity.isPressed {
-                                        waterQuantity = quantity.waterQuantity
-                                        valueUserSet = quantity.valueUserSee
-                                        userValue = quantity.valueUserSee
-                                        
-                                        print("set to \(quantity.text) ml")
-                                    }
+                                    updateQuantities(for: index)
                                 }
                             }
                     }
                 }
-                .padding(.top, 35)
-                
-                Text("How much water did you drink?")
-                    .font(.title)
-                    .fontWeight(.medium)
-                    .frame(width: 250)
-                    .padding(.top, 50)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.white)
-                
-                ButtonAF(action: {
-                    isShowingDetail = false
-                }, buttonText: "Choose Quantity", icon: "")
-                .padding(.top, 55)
-                .tint(.white)
-                
-                ButtonAF(action: {
-                    isShowingDetail = false
-                }, buttonText: "Cancel", icon: "")
-                .foregroundStyle(.white)
-                .tint(.red.opacity(4.5))
             }
             .onAppear {
                 waterQuantity = userDataModel.calculateNormOfWater()
@@ -88,10 +56,25 @@ struct WaterDetailView: View {
     }
     private func initializeQuantities() {
         let calculatedWaterQuantity = userDataModel.calculateNormOfWater()
-            quantities = [
-                WaterQuantity(text: "250", valueUserSee: 250, waterQuantity: calculatedWaterQuantity),
-                WaterQuantity(text: "350", valueUserSee: 350, waterQuantity: calculatedWaterQuantity * 1.4),
-                WaterQuantity(text: "500", valueUserSee: 500, waterQuantity: calculatedWaterQuantity * 2)
-            ]
+        quantities = [
+            WaterQuantity(text: "250", valueUserSee: 250, waterQuantity: calculatedWaterQuantity),
+            WaterQuantity(text: "350", valueUserSee: 350, waterQuantity: calculatedWaterQuantity * 1.4),
+            WaterQuantity(text: "500", valueUserSee: 500, waterQuantity: calculatedWaterQuantity * 2)
+        ]
+    }
+    private func updateQuantities(for selectedIndex: Int) {
+            for index in quantities.indices {
+                quantities[index].isPressed = index == selectedIndex
+            }
+            waterQuantity = quantities[selectedIndex].waterQuantity
+            valueUserSet = quantities[selectedIndex].valueUserSee
+            userValue = quantities[selectedIndex].valueUserSee
+            
+            print("set to \(quantities[selectedIndex].text) ml")
         }
+}
+
+#Preview {
+    WaterDetailView(isShowingDetail: .constant(true), waterQuantity: .constant(250), userValue: .constant(250))
+        .environmentObject(UserDataModel())
 }

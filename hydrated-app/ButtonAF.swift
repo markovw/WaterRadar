@@ -9,21 +9,21 @@ import SwiftUI
 
 struct ButtonAF: View {
     let action: () -> Void
-        let buttonText: String
-        let icon: String
-        
+    let buttonText: String
+    //        let icon: String
+    
     var body: some View {
         Button(action: action) {
-            Label(title: { Text(buttonText) },
-                  icon: { Image(systemName: icon) })
-            .frame(width: 250)
-            
+            Text(buttonText)
+                .frame(maxWidth: 100)
+
         }
         .buttonStyle(.bordered)
         .controlSize(.extraLarge)
-//        .tint(.accentColor)
-//        .padding(.bottom, 20)
+        //        .tint(.accentColor)
+        //        .padding(.bottom, 20)
         .fontWeight(.bold)
+        
     }
 }
 
@@ -90,6 +90,12 @@ struct MenuButton: View {
     MenuButton(action: {
         
     }, buttonText: "Test", icon: "brain")
+}
+
+#Preview {
+    ButtonAF(action: {
+        
+    }, buttonText: "Hello")
 }
 //
 //

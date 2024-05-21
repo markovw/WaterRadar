@@ -9,22 +9,26 @@ import SwiftUI
 
 struct UserData: View {
     @EnvironmentObject var userDataModel: UserDataModel
+    
+    @AppStorage("selectedGender") var storedGender: String = "Sex"
+    @AppStorage("selectedWeight") var storedWeight: Int = 0
+    
     @State var isGenderMenuOpen: Bool = false
     @State var selectedButtonDefault: String = "Sex"
     @State var selectedIconSex: String = "face.smiling"
-    @State private var selectButtonColor: Color = .blue.opacity(0.5)
+    @State var selectButtonColor: Color = .gray
     
     @State var isWeightMenuOpen: Bool = false
     @State var selectedButtonWeight: String = "Weight"
     @State var selectedWeight: Int = 0
-    @State private var selectButtonColorWeight: Color = .blue.opacity(0.5)
+    @State private var selectButtonColorWeight: Color = .gray
     @State var isDataFilled: Bool = false
     
     
     
     var body: some View {
         ZStack {
-            Color.blue.opacity(0.2)
+            Color.background
                 .ignoresSafeArea()
             Color.black.opacity(isGenderMenuOpen ? 0.4 : 0)
                 .ignoresSafeArea()
@@ -44,10 +48,8 @@ struct UserData: View {
                     withAnimation() {
                         isGenderMenuOpen.toggle()
                     }
-                    selectedButtonDefault = selectedButtonDefault
                     checkDataFilled()
                 }, buttonText: selectedButtonDefault, icon: selectedIconSex)
-                //                .tint(isGenderMenuOpen ? .blue : .blue.opacity(0.5))
                 .tint(selectButtonColor)
                 
                 SelectButton(action: { // weight select
@@ -76,6 +78,15 @@ struct UserData: View {
                     }
                 }
             )
+            .onAppear {
+                // Load stored values on appear
+                selectedButtonDefault = storedGender
+                selectedWeight = storedWeight
+                selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
+                selectButtonColor = storedGender != "Sex" ? .accentColor : .gray
+                selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
+                checkDataFilled()
+            }
         }
     }
     
@@ -84,6 +95,9 @@ struct UserData: View {
             // Если обе кнопки заполнены, вычисляем норму воды
             userDataModel.normOfWater = waterNormCalculation(weight: selectedWeight, gender: selectedButtonDefault)
             isDataFilled = true
+            
+            storedGender = selectedButtonDefault
+            storedWeight = selectedWeight
         } else {
             isDataFilled = false
         }
@@ -110,7 +124,6 @@ struct GenderMenuView: View {
             MenuButton(action: {
                 selectedButton = "Male"
                 selectedIconSex = "brain.head.profile"
-                selectButtonColor = .red
                 withAnimation {
                     isGenderMenuOpen.toggle()
                 }
@@ -120,7 +133,6 @@ struct GenderMenuView: View {
             MenuButton(action: {
                 selectedButton = "Female"
                 selectedIconSex = "eyes"
-                selectButtonColor = .red
                 withAnimation {
                     isGenderMenuOpen.toggle()
                 }
@@ -146,10 +158,6 @@ struct WeightMenuView: View {
         Spacer()
         
         VStack {
-//            XDismissButton {
-//                isWeightMenuOpen = false
-//            }
-            
             Spacer()
             
             Picker(selection: $selectedWeight, label: Text("")) {
@@ -165,10 +173,10 @@ struct WeightMenuView: View {
             
             ButtonAF(action: {
                 isWeightMenuOpen = false
-                selectButtonColorWeight = .red
                 selectedWeight = selectedWeight
                 selectedButtonWeightDefault = "\(selectedWeight) kg"
-            }, buttonText: "OK", icon: "")
+            }, buttonText: "OK")
+            .frame(maxWidth: 200)
             .tint(.blue)
 //            .padding(.bottom, 50)
             
