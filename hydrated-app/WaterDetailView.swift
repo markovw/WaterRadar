@@ -42,6 +42,7 @@ struct WaterDetailView: View {
                             }
                             .onTapGesture {
                                 withAnimation(.spring()) {
+                                    waterQuantity = userDataModel.calculateNormOfWater()
                                     updateQuantities(for: index)
                                 }
                             }
@@ -49,7 +50,6 @@ struct WaterDetailView: View {
                 }
             }
             .onAppear {
-                waterQuantity = userDataModel.calculateNormOfWater()
                 initializeQuantities()
             }
         }
@@ -62,6 +62,7 @@ struct WaterDetailView: View {
             WaterQuantity(text: "500", valueUserSee: 500, waterQuantity: calculatedWaterQuantity * 2)
         ]
     }
+    
     private func updateQuantities(for selectedIndex: Int) {
             for index in quantities.indices {
                 quantities[index].isPressed = index == selectedIndex

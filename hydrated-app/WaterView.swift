@@ -20,8 +20,8 @@ struct WaterView: View {
     @State private var isShowingWaterDetailView = false
     @State private var animationOnClick = false
     @State private var finalAnimation = false
-    @State var waterQuantity: Double = 0.125 // for fill the trim
-    @State var userValue: Double = 250 // value for default for user
+    @AppStorage("waterQuantity") var waterQuantity: Double = 0.125 // for fill the trim
+    @AppStorage("UserValueOnTap") var userValue: Double = 250 // value for default for user
     
     
     var body: some View {
@@ -39,7 +39,7 @@ struct WaterView: View {
                                 .contentShape(Rectangle()) // projects the figure even if it is hidden
                         )
                         .overlay (
-                            NavigationLink(destination: UserData()) {
+                            NavigationLink(destination: UserData()            .navigationBarBackButtonHidden(true)) {
                                 Text("\(valueDrinked.formatted(.number.grouping(.never)))ml")
                                     .font(.title)
                                     .fontWeight(.heavy)
@@ -75,7 +75,7 @@ struct WaterView: View {
                             percentageFilled = 1
                             valueDrinked = 0
                             dropped = false
-                            print("Water cleared ---")
+                            print("--- Water Cleared ---")
                         }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 450)

@@ -24,9 +24,11 @@ struct UserData: View {
     @State private var selectButtonColorWeight: Color = .gray
     @State var isDataFilled: Bool = false
     
-    
-    
+    @Environment(\.dismiss) private var dismiss
+        
     var body: some View {
+        
+            
         ZStack {
             Color.background
                 .ignoresSafeArea()
@@ -86,6 +88,13 @@ struct UserData: View {
                 selectButtonColor = storedGender != "Sex" ? .accentColor : .gray
                 selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
                 checkDataFilled()
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                BackButton {
+                    dismiss()
+                }
             }
         }
     }
