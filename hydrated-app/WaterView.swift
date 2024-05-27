@@ -13,16 +13,9 @@ struct User {
 }
 
 struct WaterView: View {
+    @StateObject var viewModel: WaterViewModel
     @EnvironmentObject var userDataModel: UserDataModel
-    @State private var percentageFilled: CGFloat = UserDefaults.standard.double(forKey: "Percentage")
-    @AppStorage("UserDrinked") var valueDrinked: Double = 250 // text valueDrinked
-    @AppStorage("DroppedTF") private var dropped = false
-    @State private var isShowingWaterDetailView = false
-    @State private var animationOnClick = false
-    @State private var finalAnimation = false
-    @AppStorage("waterQuantity") var waterQuantity: Double = 0.125 // for fill the trim
-    @AppStorage("UserValueOnTap") var userValue: Double = 250 // value for default for user
-    
+
     
     var body: some View {
         NavigationStack {
@@ -30,9 +23,9 @@ struct WaterView: View {
                 Spacer()
                 
                 ZStack {
-                    DropShapeFill(percentageFilled: $percentageFilled)
-                        .frame(width: animationOnClick ? 350 : 300, height: animationOnClick ? 430 : 380)
-                        .rotationEffect(finalAnimation ? .degrees(180) : .degrees(0))
+                    DropShapeFill(percentageFilled: $viewModel.percentageFilled)
+                        .frame(width: viewModel.animationOnClick ? 350 : 300, height: viewModel.animationOnClick ? 430 : 380)
+                        .rotationEffect(viewModel.finalAnimation ? .degrees(180) : .degrees(0))
                         .overlay (
                             Rectangle()
                                 .fill(.clear)
@@ -40,57 +33,32 @@ struct WaterView: View {
                         )
                         .overlay (
                             NavigationLink(destination: UserData()            .navigationBarBackButtonHidden(true)) {
-                                Text("\(valueDrinked.formatted(.number.grouping(.never)))ml")
+                                Text("\(viewModel.valueDrinked.formatted(.number.grouping(.never)))ml")
                                     .font(.title)
                                     .fontWeight(.heavy)
                                     .foregroundStyle(.blue)
                             }
                         )
                         .onTapGesture {
-                            if !dropped {
-                                percentageFilled = 0
-                                dropped = true
-                            }
-                            percentageFilled += waterQuantity
-                            valueDrinked += userValue
-                            UserDefaults.standard.set(percentageFilled, forKey: "Percentage")
-                            valueDrinked = min(max(valueDrinked, 0), 6000)
-                            
-                            if Int(valueDrinked) > userDataModel.normOfWater / 1000 {
-                                withAnimation(.spring(duration: 0.5)) {
-                                    animationOnClick = true
-                                }
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-                                    withAnimation(.snappy(duration: 0.65)) {
-                                        animationOnClick = false
-                                    }
-                                }
-                            } else if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
-                                withAnimation {
-                                    finalAnimation = true
-                                }
-                            }
+                            viewModel.onTapGesture()
                         }
                         .onLongPressGesture {
-                            percentageFilled = 1
-                            valueDrinked = 0
-                            dropped = false
-                            print("--- Water Cleared ---")
+                            viewModel.onLongPressGesture()
                         }
                 }
                 .frame(maxWidth: .infinity, maxHeight: 450)
                 
                 Spacer()
-                WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, userValue: $userValue)
+                WaterDetailView(isShowingDetail: $viewModel.isShowingWaterDetailView, waterQuantity: $viewModel.waterQuantity, userValue: $viewModel.userValue)
                     .padding()
                 
             }
         }
-        .blur(radius: isShowingWaterDetailView ? 7 : 0)
+        .blur(radius: viewModel.isShowingWaterDetailView ? 7 : 0)
         .overlay(
             ZStack {
-                if isShowingWaterDetailView {
-                    WaterDetailView(isShowingDetail: $isShowingWaterDetailView, waterQuantity: $waterQuantity, userValue: $userValue)
+                if viewModel.isShowingWaterDetailView {
+                    WaterDetailView(isShowingDetail: $viewModel.isShowingWaterDetailView, waterQuantity: $viewModel.waterQuantity, userValue: $viewModel.userValue)
                         .background(Color.white)
                         .cornerRadius(20)
                         .padding()
@@ -132,6 +100,7 @@ struct DropShapeFill: View {
 }
 
 #Preview {
-    WaterView()
+    
+    WaterView(viewModel: WaterViewModel(userDataModel: UserDataModel()))
         .environmentObject(UserDataModel())
 }

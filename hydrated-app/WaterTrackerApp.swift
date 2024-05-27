@@ -13,7 +13,7 @@ struct WaterTrackerApp: App {
     
     var body: some Scene {
         WindowGroup {
-            WaterView()
+            WaterView(viewModel: WaterViewModel(userDataModel: UserDataModel()))
                 .environmentObject(userDataModel)
 //            WaterTabView()
         }
