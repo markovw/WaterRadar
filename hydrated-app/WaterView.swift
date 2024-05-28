@@ -32,7 +32,7 @@ struct WaterView: View {
                                 .contentShape(Rectangle()) // projects the figure even if it is hidden
                         )
                         .overlay (
-                            NavigationLink(destination: UserData()            .navigationBarBackButtonHidden(true)) {
+                            NavigationLink(destination: UserDataView().navigationBarBackButtonHidden(true)) {
                                 Text("\(viewModel.valueDrinked.formatted(.number.grouping(.never)))ml")
                                     .font(.title)
                                     .fontWeight(.heavy)

@@ -21,15 +21,14 @@ class UserDataModel: ObservableObject {
 
 class WaterViewModel: ObservableObject {
     @Published var percentageFilled: CGFloat = UserDefaults.standard.double(forKey: "Percentage")
-    @AppStorage("UserDrinked") var valueDrinked: Double = 250 // text valueDrinked
+    @AppStorage("UserDrinked") var valueDrinked: Double = 0 // text valueDrinked
     @AppStorage("DroppedTF") var dropped = false
     @Published var isShowingWaterDetailView = false
     @Published var animationOnClick = false
     @Published var finalAnimation = false
     @AppStorage("waterQuantity") var waterQuantity: Double = 0.125 // for fill the trim
     @AppStorage("UserValueOnTap") var userValue: Double = 250 // value for default for user
-//    @EnvironmentObject var userDataModel: UserDataModel
-
+    
     private var userDataModel: UserDataModel
     
     init(userDataModel: UserDataModel) {

@@ -7,11 +7,12 @@
 
 import SwiftUI
 
-struct UserData: View {
+struct UserDataView: View {
     @EnvironmentObject var userDataModel: UserDataModel
     
     @AppStorage("selectedGender") var storedGender: String = "Sex"
     @AppStorage("selectedWeight") var storedWeight: Int = 0
+    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
     
     @State var isGenderMenuOpen: Bool = false
     @State var selectedButtonDefault: String = "Sex"
@@ -27,67 +28,72 @@ struct UserData: View {
     @Environment(\.dismiss) private var dismiss
         
     var body: some View {
-        
-            
-        ZStack {
-            Color.background
-                .ignoresSafeArea()
-            Color.black.opacity(isGenderMenuOpen ? 0.4 : 0)
-                .ignoresSafeArea()
-            
-            VStack {
-                Text("\(userDataModel.normOfWater.formatted(.number.grouping(.never)))ml")
-                    .font(.system(size: 60))
-                    .bold()
-                    .padding(.bottom, 10)
+        NavigationStack {
+            ZStack {
+                Color.background
+                    .ignoresSafeArea()
+                Color.black.opacity(isGenderMenuOpen ? 0.4 : 0)
+                    .ignoresSafeArea()
                 
-                Text("Calculate your goal")
-                    .font(.title2)
-                    .bold()
-                    .padding(.bottom, 50)
-                
-                SelectButton(action: { // gender select
-                    withAnimation() {
-                        isGenderMenuOpen.toggle()
-                    }
-                    checkDataFilled()
-                }, buttonText: selectedButtonDefault, icon: selectedIconSex)
-                .tint(selectButtonColor)
-                
-                SelectButton(action: { // weight select
-                    withAnimation {
-                        isWeightMenuOpen.toggle()
-                    }
-                }, buttonText: selectedButtonWeight, icon: "bag")
-                .tint(selectButtonColorWeight)
-            }
-            .overlay (
-                ZStack {
-                    if isGenderMenuOpen {
-                        GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen, selectedButton: $selectedButtonDefault, selectedIconSex: $selectedIconSex, selectButtonColor: $selectButtonColor)
-                            .zIndex(1)
-                            .offset(y: 250)
-                            .onDisappear {
-                                checkDataFilled()
-                            }
-                    }
-                    if isWeightMenuOpen {
-                        WeightMenuView(isWeightMenuOpen: $isWeightMenuOpen, selectedWeight: $selectedWeight, selectButtonColorWeight: $selectButtonColorWeight, selectedButtonWeightDefault: $selectedButtonWeight)
-                            .offset(y: 250)
-                            .onDisappear {
-                                checkDataFilled()
-                            }
+                VStack {
+                    Text("\(userDataModel.normOfWater.formatted(.number.grouping(.never)))ml")
+                        .font(.system(size: 60))
+                        .bold()
+                        .padding(.bottom, 10)
+                    
+                    Text("Calculate your goal")
+                        .font(.title2)
+                        .bold()
+                        .padding(.bottom, 50)
+                    
+                    SelectButton(action: { // gender select
+                        withAnimation() {
+                            isGenderMenuOpen.toggle()
+                        }
+                        checkDataFilled()
+                    }, buttonText: selectedButtonDefault, icon: selectedIconSex)
+                    .tint(selectButtonColor)
+                    
+                    SelectButton(action: { // weight select
+                        withAnimation {
+                            isWeightMenuOpen.toggle()
+                        }
+                    }, buttonText: selectedButtonWeight, icon: "bag")
+                    .tint(selectButtonColorWeight)
+                    .navigationDestination(isPresented: $isDataFilled) {
+                        WaterView(viewModel: WaterViewModel(userDataModel: UserDataModel())).navigationBarBackButtonHidden(true)
                     }
                 }
-            )
-            .onAppear {
-                // Load stored values on appear
-                selectedButtonDefault = storedGender
-                selectedWeight = storedWeight
-                selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
-                selectButtonColor = storedGender != "Sex" ? .accentColor : .gray
-                selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
-                checkDataFilled()
+                .overlay (
+                    ZStack {
+                        if isGenderMenuOpen {
+                            GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen, selectedButton: $selectedButtonDefault, selectedIconSex: $selectedIconSex, selectButtonColor: $selectButtonColor)
+                                .zIndex(1)
+                                .offset(y: 250)
+                                .onDisappear {
+                                    checkDataFilled()
+                                }
+                        }
+                        if isWeightMenuOpen {
+                            WeightMenuView(isWeightMenuOpen: $isWeightMenuOpen, selectedWeight: $selectedWeight, selectButtonColorWeight: $selectButtonColorWeight, selectedButtonWeightDefault: $selectedButtonWeight)
+                            
+                                .offset(y: 250)
+                                .onDisappear {
+                                    checkDataFilled()
+                                    isFirstLaunch = true
+                                }
+                        }
+                    }
+                )
+                .onAppear {
+                    // Load stored values on appear
+                    selectedButtonDefault = storedGender
+                    selectedWeight = storedWeight
+                    selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
+                    selectButtonColor = storedGender != "Sex" ? .accentColor : .gray
+                    selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
+                    checkDataFilled()
+                }
             }
         }
         .toolbar {
@@ -212,6 +218,6 @@ func waterNormCalculation(weight: Int, gender: String) -> Int {
 }
 
 #Preview {
-    UserData(selectedButtonDefault: "Men")
+    UserDataView(selectedButtonDefault: "Men")
         .environmentObject(UserDataModel())
 }
