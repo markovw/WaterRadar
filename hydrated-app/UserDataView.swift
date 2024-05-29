@@ -17,7 +17,7 @@ struct UserDataView: View {
     @State var isGenderMenuOpen: Bool = false
     @State var selectedButtonDefault: String = "Sex"
     @State var selectedIconSex: String = "face.smiling"
-    @State var selectButtonColor: Color = .gray
+    @State var selectButtonColorSex: Color = .gray
     
     @State var isWeightMenuOpen: Bool = false
     @State var selectedButtonWeight: String = "Weight"
@@ -46,13 +46,14 @@ struct UserDataView: View {
                         .bold()
                         .padding(.bottom, 50)
                     
-                    SelectButton(action: { // gender select
+                    SelectButton(action: {
+                        // gender select
                         withAnimation() {
                             isGenderMenuOpen.toggle()
                         }
                         checkDataFilled()
                     }, buttonText: selectedButtonDefault, icon: selectedIconSex)
-                    .tint(selectButtonColor)
+                    .tint(selectButtonColorSex)
                     
                     SelectButton(action: { // weight select
                         withAnimation {
@@ -67,7 +68,7 @@ struct UserDataView: View {
                 .overlay (
                     ZStack {
                         if isGenderMenuOpen {
-                            GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen, selectedButton: $selectedButtonDefault, selectedIconSex: $selectedIconSex, selectButtonColor: $selectButtonColor)
+                            GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen, selectedButton: $selectedButtonDefault, selectedIconSex: $selectedIconSex, selectButtonColorSex: $selectButtonColorSex)
                                 .zIndex(1)
                                 .offset(y: 250)
                                 .onDisappear {
@@ -90,7 +91,7 @@ struct UserDataView: View {
                     selectedButtonDefault = storedGender
                     selectedWeight = storedWeight
                     selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
-                    selectButtonColor = storedGender != "Sex" ? .accentColor : .gray
+                    selectButtonColorSex = storedGender != "Sex" ? .accentColor : .gray
                     selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
                     checkDataFilled()
                 }
@@ -123,7 +124,7 @@ struct GenderMenuView: View {
     @Binding var isGenderMenuOpen: Bool
     @Binding var selectedButton: String
     @Binding var selectedIconSex: String
-    @Binding var selectButtonColor: Color
+    @Binding var selectButtonColorSex: Color
     
     var body: some View {
         Spacer()
@@ -139,6 +140,7 @@ struct GenderMenuView: View {
             MenuButton(action: {
                 selectedButton = "Male"
                 selectedIconSex = "brain.head.profile"
+                selectButtonColorSex = .accentColor
                 withAnimation {
                     isGenderMenuOpen.toggle()
                 }
@@ -148,6 +150,7 @@ struct GenderMenuView: View {
             MenuButton(action: {
                 selectedButton = "Female"
                 selectedIconSex = "eyes"
+                selectButtonColorSex = .accentColor
                 withAnimation {
                     isGenderMenuOpen.toggle()
                 }
@@ -189,6 +192,7 @@ struct WeightMenuView: View {
             ButtonAF(action: {
                 isWeightMenuOpen = false
                 selectedWeight = selectedWeight
+                selectButtonColorWeight = .accentColor
                 selectedButtonWeightDefault = "\(selectedWeight) kg"
             }, buttonText: "OK")
             .frame(maxWidth: 200)
