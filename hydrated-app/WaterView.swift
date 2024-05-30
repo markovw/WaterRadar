@@ -13,8 +13,8 @@ struct User {
 }
 
 struct WaterView: View {
-    @StateObject var viewModel: WaterViewModel
-    @EnvironmentObject var userDataModel: UserDataModel
+    @StateObject var viewModel = WaterViewModel(userDataModel: UserDataModel())
+    @StateObject var userDataModel = UserDataModel()
 
     
     var body: some View {
@@ -101,6 +101,6 @@ struct DropShapeFill: View {
 
 #Preview {
     
-    WaterView(viewModel: WaterViewModel(userDataModel: UserDataModel()))
+    WaterView()
         .environmentObject(UserDataModel())
 }

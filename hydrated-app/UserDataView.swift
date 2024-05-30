@@ -12,7 +12,6 @@ struct UserDataView: View {
     
     @AppStorage("selectedGender") var storedGender: String = "Sex"
     @AppStorage("selectedWeight") var storedWeight: Int = 0
-    @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
     
     @State var isGenderMenuOpen: Bool = false
     @State var selectedButtonDefault: String = "Sex"
@@ -81,7 +80,6 @@ struct UserDataView: View {
                                 .offset(y: 250)
                                 .onDisappear {
                                     checkDataFilled()
-                                    isFirstLaunch = true
                                 }
                         }
                     }

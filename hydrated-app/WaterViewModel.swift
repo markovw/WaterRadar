@@ -29,7 +29,7 @@ class WaterViewModel: ObservableObject {
     @AppStorage("waterQuantity") var waterQuantity: Double = 0.125 // for fill the trim
     @AppStorage("UserValueOnTap") var userValue: Double = 250 // value for default for user
     
-    private var userDataModel: UserDataModel
+    var userDataModel: UserDataModel
     
     init(userDataModel: UserDataModel) {
             self.userDataModel = userDataModel
