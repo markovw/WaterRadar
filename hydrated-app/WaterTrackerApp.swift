@@ -12,8 +12,7 @@ struct WaterTrackerApp: App {
     @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
     @StateObject var viewModel = WaterViewModel(userDataModel: UserDataModel())
     @StateObject var userDataModel = UserDataModel()
-    
-    
+
     var body: some Scene {
         WindowGroup {
             if isFirstLaunch {
@@ -25,8 +24,7 @@ struct WaterTrackerApp: App {
                 WaterView()
                     .environmentObject(userDataModel)
                     .environmentObject(viewModel)
-            }
-            
+            }   
         }
     }
 }
