@@ -9,19 +9,16 @@ import SwiftUI
 
 struct UserDataView: View {
     @EnvironmentObject var userDataModel: UserDataModel
+    @EnvironmentObject var userDataViewModel: UserDataViewModel
     
     @AppStorage("selectedGender") var storedGender: String = "Sex"
     @AppStorage("selectedWeight") var storedWeight: Int = 0
     
-    @State var isGenderMenuOpen: Bool = false
-    @State var selectedButtonDefault: String = "Sex"
-    @State var selectedIconSex: String = "face.smiling"
-    @State var selectButtonColorSex: Color = .gray
     
-    @State var isWeightMenuOpen: Bool = false
-    @State var selectedButtonWeight: String = "Weight"
-    @State var selectedWeight: Int = 0
-    @State private var selectButtonColorWeight: Color = .gray
+    
+
+    
+    
     @State var isDataFilled: Bool = false
     
     @Environment(\.dismiss) private var dismiss
@@ -31,7 +28,7 @@ struct UserDataView: View {
             ZStack {
                 Color.background
                     .ignoresSafeArea()
-                Color.black.opacity(isGenderMenuOpen ? 0.4 : 0)
+                Color.black.opacity(userDataViewModel.isGenderMenuOpen ? 0.4 : 0)
                     .ignoresSafeArea()
                 
                 VStack {
@@ -48,34 +45,34 @@ struct UserDataView: View {
                     SelectButton(action: {
                         // gender select
                         withAnimation() {
-                            isGenderMenuOpen.toggle()
+                            userDataViewModel.isGenderMenuOpen.toggle()
                         }
                         checkDataFilled()
-                    }, buttonText: selectedButtonDefault, icon: selectedIconSex)
-                    .tint(selectButtonColorSex)
+                    }, buttonText: userDataViewModel.selectedButtonDefault, icon: userDataViewModel.selectedIconSex)
+                    .tint(userDataViewModel.selectButtonColorSex)
                     
                     SelectButton(action: { // weight select
                         withAnimation {
-                            isWeightMenuOpen.toggle()
+                            userDataViewModel.isWeightMenuOpen.toggle()
                         }
-                    }, buttonText: selectedButtonWeight, icon: "bag")
-                    .tint(selectButtonColorWeight)
+                    }, buttonText: userDataViewModel.selectedButtonWeight, icon: "bag")
+                    .tint(userDataViewModel.selectButtonColorWeight)
                     .navigationDestination(isPresented: $isDataFilled) {
-                        WaterView(viewModel: WaterViewModel(userDataModel: UserDataModel())).navigationBarBackButtonHidden(true)
+                        WaterView().navigationBarBackButtonHidden(true)
                     }
                 }
                 .overlay (
                     ZStack {
-                        if isGenderMenuOpen {
-                            GenderMenuView(isGenderMenuOpen: $isGenderMenuOpen, selectedButton: $selectedButtonDefault, selectedIconSex: $selectedIconSex, selectButtonColorSex: $selectButtonColorSex)
+                        if userDataViewModel.isGenderMenuOpen {
+                            GenderMenuView()
                                 .zIndex(1)
                                 .offset(y: 250)
                                 .onDisappear {
                                     checkDataFilled()
                                 }
                         }
-                        if isWeightMenuOpen {
-                            WeightMenuView(isWeightMenuOpen: $isWeightMenuOpen, selectedWeight: $selectedWeight, selectButtonColorWeight: $selectButtonColorWeight, selectedButtonWeightDefault: $selectedButtonWeight)
+                        if userDataViewModel.isWeightMenuOpen {
+                            WeightMenuView()
                             
                                 .offset(y: 250)
                                 .onDisappear {
@@ -86,11 +83,11 @@ struct UserDataView: View {
                 )
                 .onAppear {
                     // Load stored values on appear
-                    selectedButtonDefault = storedGender
-                    selectedWeight = storedWeight
-                    selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
-                    selectButtonColorSex = storedGender != "Sex" ? .accentColor : .gray
-                    selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
+                    userDataViewModel.selectedButtonDefault = storedGender
+                    userDataViewModel.selectedWeight = storedWeight
+                    userDataViewModel.selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
+                    userDataViewModel.selectButtonColorSex = storedGender != "Sex" ? .accentColor : .gray
+                    userDataViewModel.selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
                     checkDataFilled()
                 }
             }
@@ -105,13 +102,13 @@ struct UserDataView: View {
     }
     
     func checkDataFilled() {
-        if selectedButtonDefault != "Sex" && selectedButtonWeight != "Weight" {
+        if userDataViewModel.selectedButtonDefault != "Sex" && userDataViewModel.selectedButtonWeight != "Weight" {
             // Если обе кнопки заполнены, вычисляем норму воды
-            userDataModel.normOfWater = waterNormCalculation(weight: selectedWeight, gender: selectedButtonDefault)
+            userDataModel.normOfWater = waterNormCalculation(weight: userDataViewModel.selectedWeight, gender: userDataViewModel.selectedButtonDefault)
             isDataFilled = true
             
-            storedGender = selectedButtonDefault
-            storedWeight = selectedWeight
+            storedGender = userDataViewModel.selectedButtonDefault
+            storedWeight = userDataViewModel.selectedWeight
         } else {
             isDataFilled = false
         }
@@ -119,10 +116,7 @@ struct UserDataView: View {
 }
 
 struct GenderMenuView: View {
-    @Binding var isGenderMenuOpen: Bool
-    @Binding var selectedButton: String
-    @Binding var selectedIconSex: String
-    @Binding var selectButtonColorSex: Color
+    @EnvironmentObject var viewModel: UserDataViewModel
     
     var body: some View {
         Spacer()
@@ -131,26 +125,26 @@ struct GenderMenuView: View {
             
             XDismissButton {
                 withAnimation {
-                    isGenderMenuOpen = false
+                    viewModel.isGenderMenuOpen = false
                 }
             }
             
             MenuButton(action: {
-                selectedButton = "Male"
-                selectedIconSex = "brain.head.profile"
-                selectButtonColorSex = .accentColor
+                viewModel.selectedButtonDefault = "Male"
+                viewModel.selectedIconSex = "brain.head.profile"
+                viewModel.selectButtonColorSex = .accentColor
                 withAnimation {
-                    isGenderMenuOpen.toggle()
+                    viewModel.isGenderMenuOpen.toggle()
                 }
             }, buttonText: "Male", icon: "brain.head.profile")
             .tint(.gray)
             
             MenuButton(action: {
-                selectedButton = "Female"
-                selectedIconSex = "eyes"
-                selectButtonColorSex = .accentColor
+                viewModel.selectedButtonDefault = "Female"
+                viewModel.selectedIconSex = "eyes"
+                viewModel.selectButtonColorSex = .accentColor
                 withAnimation {
-                    isGenderMenuOpen.toggle()
+                    viewModel.isGenderMenuOpen.toggle()
                 }
             }, buttonText: "Female", icon: "eyes")
             .tint(.gray)
@@ -165,10 +159,8 @@ struct GenderMenuView: View {
 }
 
 struct WeightMenuView: View {
-    @Binding var isWeightMenuOpen: Bool
-    @Binding var selectedWeight: Int
-    @Binding var selectButtonColorWeight: Color
-    @Binding var selectedButtonWeightDefault: String
+    @EnvironmentObject var userDataViewModel: UserDataViewModel
+
     
     var body: some View {
         Spacer()
@@ -176,7 +168,7 @@ struct WeightMenuView: View {
         VStack {
             Spacer()
             
-            Picker(selection: $selectedWeight, label: Text("")) {
+            Picker(selection: $userDataViewModel.selectedWeight, label: Text("")) {
                 ForEach(30..<201) {
                     Text("\($0)").tag($0)
                 }
@@ -188,10 +180,10 @@ struct WeightMenuView: View {
             .padding(.top, 50)
             
             ButtonAF(action: {
-                isWeightMenuOpen = false
-                selectedWeight = selectedWeight
-                selectButtonColorWeight = .accentColor
-                selectedButtonWeightDefault = "\(selectedWeight) kg"
+                userDataViewModel.isWeightMenuOpen = false
+                userDataViewModel.selectedWeight = userDataViewModel.selectedWeight
+                userDataViewModel.selectButtonColorWeight = .accentColor
+                userDataViewModel.selectedButtonWeight = "\(userDataViewModel.selectedWeight) kg"
             }, buttonText: "OK")
             .frame(maxWidth: 200)
             .tint(.blue)
@@ -220,6 +212,7 @@ func waterNormCalculation(weight: Int, gender: String) -> Int {
 }
 
 #Preview {
-    UserDataView(selectedButtonDefault: "Men")
+    UserDataView()
         .environmentObject(UserDataModel())
+        .environmentObject(UserDataViewModel())
 }

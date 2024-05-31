@@ -10,15 +10,21 @@ import SwiftUI
 @main
 struct WaterTrackerApp: App {
     @AppStorage("isFirstLaunch") var isFirstLaunch: Bool = true
+    @StateObject var viewModel = WaterViewModel(userDataModel: UserDataModel())
+    @StateObject var userDataModel = UserDataModel()
+    
     
     var body: some Scene {
         WindowGroup {
             if isFirstLaunch {
                 UserDataView()
-                    .environmentObject(UserDataModel())
+                    .environmentObject(userDataModel)
+                    .environmentObject(viewModel)
+                    .environmentObject(UserDataViewModel())
             } else {
                 WaterView()
-                    .environmentObject(UserDataModel())
+                    .environmentObject(userDataModel)
+                    .environmentObject(viewModel)
             }
             
         }

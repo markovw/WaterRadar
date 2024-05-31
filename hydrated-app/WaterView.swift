@@ -13,8 +13,8 @@ struct User {
 }
 
 struct WaterView: View {
-    @StateObject var viewModel = WaterViewModel(userDataModel: UserDataModel())
-    @StateObject var userDataModel = UserDataModel()
+
+    @EnvironmentObject var viewModel: WaterViewModel
 
     
     var body: some View {
@@ -32,7 +32,7 @@ struct WaterView: View {
                                 .contentShape(Rectangle()) // projects the figure even if it is hidden
                         )
                         .overlay (
-                            NavigationLink(destination: UserDataView().navigationBarBackButtonHidden(true)) {
+                            NavigationLink(destination: UserDataView().environmentObject(UserDataViewModel()).navigationBarBackButtonHidden(true)) {
                                 Text("\(viewModel.valueDrinked.formatted(.number.grouping(.never)))ml")
                                     .font(.title)
                                     .fontWeight(.heavy)
@@ -102,5 +102,5 @@ struct DropShapeFill: View {
 #Preview {
     
     WaterView()
-        .environmentObject(UserDataModel())
+
 }
