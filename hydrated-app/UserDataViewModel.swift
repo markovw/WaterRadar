@@ -60,5 +60,5 @@ class UserDataViewModel: ObservableObject {
         }, buttonText: gender, icon: icon)
         .tint(.gray)
     }
-
+    
 }

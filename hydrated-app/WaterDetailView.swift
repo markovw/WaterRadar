@@ -13,7 +13,6 @@ struct WaterQuantity: Identifiable {
     let valueUserSee: Double
     var isPressed: Bool = false
     var waterQuantity: Double
-    
 }
 
 struct WaterDetailView: View {
@@ -32,12 +31,12 @@ struct WaterDetailView: View {
                         let quantity = quantities[index]
                         Circle()
                             .frame(width: 70, height: 70)
-                            .foregroundStyle(quantity.isPressed ? Color.accentColor.opacity(0.5) : Color.accentColor.opacity(0.35))
+                            .foregroundStyle(quantity.isPressed ? Color("buttonColor") : Color("buttonColor").opacity(0.5)) /*Color.accentColor.opacity(0.5) : Color.accentColor.opacity(0.35))*/
                             .scaleEffect(quantity.isPressed ? 1.15 : 1.0)
                             .overlay {
                                 Text(quantity.text)
                                     .font(.title3)
-                                    .foregroundStyle(quantity.isPressed ? .white : .white)
+                                    .foregroundStyle(quantity.isPressed ? .white : .black)
                                     .fontWeight(.medium)
                             }
                             .onTapGesture {
@@ -62,17 +61,16 @@ struct WaterDetailView: View {
             WaterQuantity(text: "500", valueUserSee: 500, waterQuantity: calculatedWaterQuantity * 2)
         ]
     }
-    
     private func updateQuantities(for selectedIndex: Int) {
-            for index in quantities.indices {
-                quantities[index].isPressed = index == selectedIndex
-            }
-            waterQuantity = quantities[selectedIndex].waterQuantity
-            valueUserSet = quantities[selectedIndex].valueUserSee
-            userValue = quantities[selectedIndex].valueUserSee
-            
-            print("set to \(quantities[selectedIndex].text) ml")
+        for index in quantities.indices {
+            quantities[index].isPressed = index == selectedIndex
         }
+        waterQuantity = quantities[selectedIndex].waterQuantity
+        valueUserSet = quantities[selectedIndex].valueUserSee
+        userValue = quantities[selectedIndex].valueUserSee
+        
+        print("set to \(quantities[selectedIndex].text) ml")
+    }
 }
 
 #Preview {

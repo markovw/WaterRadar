@@ -32,39 +32,39 @@ class WaterViewModel: ObservableObject {
     var userDataModel: UserDataModel
     
     init(userDataModel: UserDataModel) {
-            self.userDataModel = userDataModel
-        }
+        self.userDataModel = userDataModel
+    }
     
     func onTapGesture() {
-            if !dropped {
-                percentageFilled = 0
-                dropped = true
-            }
-            percentageFilled += waterQuantity
-            valueDrinked += userValue
-            UserDefaults.standard.set(percentageFilled, forKey: "Percentage")
-            valueDrinked = min(max(valueDrinked, 0), 6000)
-            
+        if !dropped {
+            percentageFilled = 0
+            dropped = true
+        }
+        percentageFilled += waterQuantity
+        valueDrinked += userValue
+        UserDefaults.standard.set(percentageFilled, forKey: "Percentage")
+        valueDrinked = min(max(valueDrinked, 0), 6000)
+        
         if Int(valueDrinked) > userDataModel.normOfWater / 1000 {
-                withAnimation(.spring(duration: 0.5)) {
-                    animationOnClick = true
-                }
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
-                    withAnimation(.snappy(duration: 0.65)) {
-                        self.animationOnClick = false
-                    }
-                }
-            } else if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
-                withAnimation {
-                    finalAnimation = true
+            withAnimation(.spring(duration: 0.5)) {
+                animationOnClick = true
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.65) {
+                withAnimation(.snappy(duration: 0.65)) {
+                    self.animationOnClick = false
                 }
             }
+        } else if Int(valueDrinked) >= userDataModel.normOfWater / 1000 {
+            withAnimation {
+                finalAnimation = true
+            }
         }
+    }
     
-        func onLongPressGesture() {
-            percentageFilled = 1
-            valueDrinked = 0
-            dropped = false
-            print("--- Water Cleared ---")
-        }
+    func onLongPressGesture() {
+        percentageFilled = 1
+        valueDrinked = 0
+        dropped = false
+        print("--- Water Cleared ---")
+    }
 }

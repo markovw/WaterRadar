@@ -13,7 +13,7 @@ struct UserDataView: View {
     @Environment(\.dismiss) private var dismiss
     
     @State var isDataFilled: Bool = false
-        
+    
     var body: some View {
         NavigationStack {
             ZStack {

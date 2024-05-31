@@ -15,8 +15,6 @@
 		863D6A732BF2AEA600E55117 /* UserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863D6A722BF2AEA600E55117 /* UserDataView.swift */; };
 		8646E53D2C00848F00CABB0B /* Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8646E53C2C00848F00CABB0B /* Ext.swift */; };
 		869338412C091CB900786D2A /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869338402C091CB900786D2A /* UserDataViewModel.swift */; };
-		869E5EE32BEF53DF00042851 /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE22BEF53DF00042851 /* AccountView.swift */; };
-		869E5EE52BEF543200042851 /* AnalysisView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE42BEF543200042851 /* AnalysisView.swift */; };
 		869E5EE72BEF7BBA00042851 /* ButtonAF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE62BEF7BBA00042851 /* ButtonAF.swift */; };
 		86A0ADA52BF124E200344B90 /* WaterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0ADA42BF124E200344B90 /* WaterDetailView.swift */; };
 		86F4A2972BF3EC26005D91C9 /* XDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */; };
@@ -33,8 +31,6 @@
 		863D6A722BF2AEA600E55117 /* UserDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataView.swift; sourceTree = "<group>"; };
 		8646E53C2C00848F00CABB0B /* Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ext.swift; sourceTree = "<group>"; };
 		869338402C091CB900786D2A /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
-		869E5EE22BEF53DF00042851 /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
-		869E5EE42BEF543200042851 /* AnalysisView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisView.swift; sourceTree = "<group>"; };
 		869E5EE62BEF7BBA00042851 /* ButtonAF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAF.swift; sourceTree = "<group>"; };
 		86A0ADA42BF124E200344B90 /* WaterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDetailView.swift; sourceTree = "<group>"; };
 		86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDismissButton.swift; sourceTree = "<group>"; };
@@ -79,8 +75,6 @@
 				8646E53C2C00848F00CABB0B /* Ext.swift */,
 				86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */,
 				869E5EE62BEF7BBA00042851 /* ButtonAF.swift */,
-				869E5EE42BEF543200042851 /* AnalysisView.swift */,
-				869E5EE22BEF53DF00042851 /* AccountView.swift */,
 				862142892BEECC9D005B1717 /* Assets.xcassets */,
 				8621428B2BEECC9D005B1717 /* hydrated_app.entitlements */,
 				8621428C2BEECC9D005B1717 /* Preview Content */,
@@ -166,12 +160,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				869E5EE32BEF53DF00042851 /* AccountView.swift in Sources */,
 				869338412C091CB900786D2A /* UserDataViewModel.swift in Sources */,
 				862142882BEECC9C005B1717 /* WaterView.swift in Sources */,
 				86F4A2972BF3EC26005D91C9 /* XDismissButton.swift in Sources */,
 				863D6A732BF2AEA600E55117 /* UserDataView.swift in Sources */,
-				869E5EE52BEF543200042851 /* AnalysisView.swift in Sources */,
 				8646E53D2C00848F00CABB0B /* Ext.swift in Sources */,
 				862FEE4A2BF6109300CDAA66 /* WaterViewModel.swift in Sources */,
 				86A0ADA52BF124E200344B90 /* WaterDetailView.swift in Sources */,

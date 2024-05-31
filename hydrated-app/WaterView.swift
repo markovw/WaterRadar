@@ -48,11 +48,15 @@ struct WaterView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: 450)
                 
+                
                 Spacer()
                 WaterDetailView(isShowingDetail: $viewModel.isShowingWaterDetailView, waterQuantity: $viewModel.waterQuantity, userValue: $viewModel.userValue)
                     .padding()
                 
             }
+//            .background(.cyan.opacity(0.5))
+            .background(Color("backgroundColor"))
+            
         }
         .blur(radius: viewModel.isShowingWaterDetailView ? 7 : 0)
         .overlay(
@@ -102,5 +106,6 @@ struct DropShapeFill: View {
 #Preview {
     
     WaterView()
-
+        .environmentObject(WaterViewModel(userDataModel: UserDataModel()))
+        .environmentObject(UserDataModel())
 }

@@ -16,7 +16,7 @@ struct ButtonAF: View {
         Button(action: action) {
             Text(buttonText)
                 .frame(maxWidth: 100)
-
+            
         }
         .buttonStyle(.bordered)
         .controlSize(.extraLarge)
@@ -97,11 +97,4 @@ struct MenuButton: View {
         
     }, buttonText: "Hello")
 }
-//
-//
-//#Preview {
-//    ButtonAF(action: {
-//        
-//    }, buttonText: "Press Button", icon: "house")
-//    
 
