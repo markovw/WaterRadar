@@ -24,7 +24,9 @@ struct WaterTrackerApp: App {
                 WaterView()
                     .environmentObject(userDataModel)
                     .environmentObject(viewModel)
-            }   
+                    .environmentObject(UserDataViewModel())
+
+            }
         }
     }
 }

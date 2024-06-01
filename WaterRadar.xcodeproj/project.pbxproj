@@ -15,13 +15,14 @@
 		863D6A732BF2AEA600E55117 /* UserDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 863D6A722BF2AEA600E55117 /* UserDataView.swift */; };
 		8646E53D2C00848F00CABB0B /* Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8646E53C2C00848F00CABB0B /* Ext.swift */; };
 		869338412C091CB900786D2A /* UserDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869338402C091CB900786D2A /* UserDataViewModel.swift */; };
+		869338432C0A735400786D2A /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869338422C0A735400786D2A /* NotificationViewModel.swift */; };
 		869E5EE72BEF7BBA00042851 /* ButtonAF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 869E5EE62BEF7BBA00042851 /* ButtonAF.swift */; };
 		86A0ADA52BF124E200344B90 /* WaterDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86A0ADA42BF124E200344B90 /* WaterDetailView.swift */; };
 		86F4A2972BF3EC26005D91C9 /* XDismissButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		862142822BEECC9C005B1717 /* hydrated-app.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "hydrated-app.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		862142822BEECC9C005B1717 /* WaterRadar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterRadar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		862142852BEECC9C005B1717 /* WaterTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterTrackerApp.swift; sourceTree = "<group>"; };
 		862142872BEECC9C005B1717 /* WaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterView.swift; sourceTree = "<group>"; };
 		862142892BEECC9D005B1717 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -31,6 +32,7 @@
 		863D6A722BF2AEA600E55117 /* UserDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataView.swift; sourceTree = "<group>"; };
 		8646E53C2C00848F00CABB0B /* Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ext.swift; sourceTree = "<group>"; };
 		869338402C091CB900786D2A /* UserDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataViewModel.swift; sourceTree = "<group>"; };
+		869338422C0A735400786D2A /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		869E5EE62BEF7BBA00042851 /* ButtonAF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonAF.swift; sourceTree = "<group>"; };
 		86A0ADA42BF124E200344B90 /* WaterDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterDetailView.swift; sourceTree = "<group>"; };
 		86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XDismissButton.swift; sourceTree = "<group>"; };
@@ -58,7 +60,7 @@
 		862142832BEECC9C005B1717 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				862142822BEECC9C005B1717 /* hydrated-app.app */,
+				862142822BEECC9C005B1717 /* WaterRadar.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +75,7 @@
 				863D6A722BF2AEA600E55117 /* UserDataView.swift */,
 				869338402C091CB900786D2A /* UserDataViewModel.swift */,
 				8646E53C2C00848F00CABB0B /* Ext.swift */,
+				869338422C0A735400786D2A /* NotificationViewModel.swift */,
 				86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */,
 				869E5EE62BEF7BBA00042851 /* ButtonAF.swift */,
 				862142892BEECC9D005B1717 /* Assets.xcassets */,
@@ -93,9 +96,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		862142812BEECC9C005B1717 /* hydrated-app */ = {
+		862142812BEECC9C005B1717 /* WaterRadar */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 862142912BEECC9D005B1717 /* Build configuration list for PBXNativeTarget "hydrated-app" */;
+			buildConfigurationList = 862142912BEECC9D005B1717 /* Build configuration list for PBXNativeTarget "WaterRadar" */;
 			buildPhases = (
 				8621427E2BEECC9C005B1717 /* Sources */,
 				8621427F2BEECC9C005B1717 /* Frameworks */,
@@ -105,9 +108,9 @@
 			);
 			dependencies = (
 			);
-			name = "hydrated-app";
+			name = WaterRadar;
 			productName = "hydrated-app";
-			productReference = 862142822BEECC9C005B1717 /* hydrated-app.app */;
+			productReference = 862142822BEECC9C005B1717 /* WaterRadar.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -125,7 +128,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8621427D2BEECC9C005B1717 /* Build configuration list for PBXProject "hydrated-app" */;
+			buildConfigurationList = 8621427D2BEECC9C005B1717 /* Build configuration list for PBXProject "WaterRadar" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -138,7 +141,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				862142812BEECC9C005B1717 /* hydrated-app */,
+				862142812BEECC9C005B1717 /* WaterRadar */,
 			);
 		};
 /* End PBXProject section */
@@ -161,6 +164,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				869338412C091CB900786D2A /* UserDataViewModel.swift in Sources */,
+				869338432C0A735400786D2A /* NotificationViewModel.swift in Sources */,
 				862142882BEECC9C005B1717 /* WaterView.swift in Sources */,
 				86F4A2972BF3EC26005D91C9 /* XDismissButton.swift in Sources */,
 				863D6A732BF2AEA600E55117 /* UserDataView.swift in Sources */,
@@ -374,7 +378,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8621427D2BEECC9C005B1717 /* Build configuration list for PBXProject "hydrated-app" */ = {
+		8621427D2BEECC9C005B1717 /* Build configuration list for PBXProject "WaterRadar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8621428F2BEECC9D005B1717 /* Debug */,
@@ -383,7 +387,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		862142912BEECC9D005B1717 /* Build configuration list for PBXNativeTarget "hydrated-app" */ = {
+		862142912BEECC9D005B1717 /* Build configuration list for PBXNativeTarget "WaterRadar" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				862142922BEECC9D005B1717 /* Debug */,

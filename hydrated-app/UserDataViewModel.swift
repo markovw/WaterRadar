@@ -27,7 +27,6 @@ class UserDataViewModel: ObservableObject {
         selectedButtonWeight = storedWeight > 0 ? "\(storedWeight) kg" : "Weight"
         selectButtonColorSex = storedGender != "Sex" ? .accentColor : .gray
         selectButtonColorWeight = storedWeight > 0 ? .accentColor : .gray
-        
     }
     
     func buttonWeightOK() {

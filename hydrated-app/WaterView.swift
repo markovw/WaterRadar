@@ -13,9 +13,7 @@ struct User {
 }
 
 struct WaterView: View {
-
     @EnvironmentObject var viewModel: WaterViewModel
-
     
     var body: some View {
         NavigationStack {
@@ -54,7 +52,6 @@ struct WaterView: View {
                     .padding()
                 
             }
-//            .background(.cyan.opacity(0.5))
             .background(Color("backgroundColor"))
             
         }
@@ -69,6 +66,7 @@ struct WaterView: View {
                 }
             }
         )
+        
     }
 }
 

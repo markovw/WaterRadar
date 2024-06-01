@@ -10,6 +10,7 @@ import SwiftUI
 struct UserDataView: View {
     @EnvironmentObject var userDataModel: UserDataModel
     @EnvironmentObject var userDataViewModel: UserDataViewModel
+
     @Environment(\.dismiss) private var dismiss
     
     @State var isDataFilled: Bool = false
@@ -34,10 +35,9 @@ struct UserDataView: View {
                         .padding(.bottom, 50)
                     
                     SelectButton(action: { // gender select
-                        withAnimation() {
+                        withAnimation(.smooth(duration: 0.3)) {
                             userDataViewModel.isGenderMenuOpen.toggle()
                         }
-                        checkDataFilled()
                     }, buttonText: userDataViewModel.selectedButtonDefault, icon: userDataViewModel.selectedIconSex)
                     .tint(userDataViewModel.selectButtonColorSex)
                     
@@ -55,14 +55,16 @@ struct UserDataView: View {
                     ZStack {
                         if userDataViewModel.isGenderMenuOpen {
                             GenderMenuView()
+                                .transition(.move(edge: .bottom))
                                 .zIndex(1)
-                                .offset(y: 250)
+                                .offset(y: 270)
                                 .onDisappear {
                                     checkDataFilled()
                                 }
                         }
                         if userDataViewModel.isWeightMenuOpen {
                             WeightMenuView()
+                                .transition(.move(edge: .bottom))
                                 .offset(y: 250)
                                 .onDisappear {
                                     checkDataFilled()
@@ -113,13 +115,14 @@ struct GenderMenuView: View {
             }
             viewModel.createGenderMenuButton(gender: "Male", icon: "brain.head.profile")
             viewModel.createGenderMenuButton(gender: "Female", icon: "eyes")
+            viewModel.createGenderMenuButton(gender: "Altooshka", icon: "poweroutlet.type.k")
             
             Spacer()
         }
         .background(.white.opacity(1))
         .cornerRadius(25)
         .frame(width: UIScreen.main.bounds.width,
-               height: UIScreen.main.bounds.height / 2.5)
+               height: 450)
     }
 }
 
