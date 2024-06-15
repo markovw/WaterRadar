@@ -69,15 +69,9 @@
 			isa = PBXGroup;
 			children = (
 				862142852BEECC9C005B1717 /* WaterTrackerApp.swift */,
-				862142872BEECC9C005B1717 /* WaterView.swift */,
-				862FEE492BF6109300CDAA66 /* WaterViewModel.swift */,
-				86A0ADA42BF124E200344B90 /* WaterDetailView.swift */,
-				863D6A722BF2AEA600E55117 /* UserDataView.swift */,
-				869338402C091CB900786D2A /* UserDataViewModel.swift */,
-				8646E53C2C00848F00CABB0B /* Ext.swift */,
-				869338422C0A735400786D2A /* NotificationViewModel.swift */,
-				86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */,
-				869E5EE62BEF7BBA00042851 /* ButtonAF.swift */,
+				869CCE102C1E3748004D8A2E /* View */,
+				869CCE0F2C1E373F004D8A2E /* Model */,
+				869CCE112C1E375D004D8A2E /* Helper */,
 				862142892BEECC9D005B1717 /* Assets.xcassets */,
 				8621428B2BEECC9D005B1717 /* hydrated_app.entitlements */,
 				8621428C2BEECC9D005B1717 /* Preview Content */,
@@ -91,6 +85,36 @@
 				8621428D2BEECC9D005B1717 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		869CCE0F2C1E373F004D8A2E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				862FEE492BF6109300CDAA66 /* WaterViewModel.swift */,
+				869338402C091CB900786D2A /* UserDataViewModel.swift */,
+				869338422C0A735400786D2A /* NotificationViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		869CCE102C1E3748004D8A2E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				862142872BEECC9C005B1717 /* WaterView.swift */,
+				86A0ADA42BF124E200344B90 /* WaterDetailView.swift */,
+				863D6A722BF2AEA600E55117 /* UserDataView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		869CCE112C1E375D004D8A2E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				8646E53C2C00848F00CABB0B /* Ext.swift */,
+				86F4A2962BF3EC26005D91C9 /* XDismissButton.swift */,
+				869E5EE62BEF7BBA00042851 /* ButtonAF.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -121,7 +145,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1530;
-				LastUpgradeCheck = 1530;
+				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					862142812BEECC9C005B1717 = {
 						CreatedOnToolsVersion = 15.3;
@@ -213,6 +237,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -274,6 +299,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -301,6 +327,7 @@
 				CODE_SIGN_ENTITLEMENTS = "hydrated-app/hydrated_app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"hydrated-app/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ2766T64K;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -342,6 +369,7 @@
 				CODE_SIGN_ENTITLEMENTS = "hydrated-app/hydrated_app.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"hydrated-app/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ2766T64K;
 				ENABLE_HARDENED_RUNTIME = YES;
